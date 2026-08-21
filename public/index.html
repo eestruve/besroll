@@ -5,246 +5,465 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Open Graph Meta Tags for Telegram, WhatsApp, Discord, VK -->
-  <meta property="og:title" content="👑 Тот самый секретный трек, который ищут все">
-  <meta property="og:description" content="Эксклюзивный музыкальный релиз Беслана. Нажмите, чтобы послушать!">
+  <meta property="og:title" content="👑 Besik Raev — «Останься музыка» (Секретный трек)">
+  <meta property="og:description" content="Эксклюзивный музыкальный релиз Besik Raev «Останься музыка». Нажмите, чтобы послушать!">
   <meta property="og:image" content="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800">
   <meta property="og:type" content="music.song">
   <meta name="twitter:card" content="summary_large_image">
 
-  <title>Бесроллинг (Besrolling) — Вирусный Генератор Ловушек</title>
+  <title>Besik Raev — «Останься музыка» | BesTube (Бесроллинг)</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <div class="container">
-    <!-- Main Intro Card -->
-    <div class="glass-card">
-      <div class="header-badge">🔥 Мгновенный Пранк-Плеер</div>
-      <h1>БЕСРОЛЛИНГ</h1>
-      <p class="subtitle">
-        Легендарная механика <strong>Рикролла</strong>, адаптированная для трека Беслана (<strong>@besikraev</strong>). 
-        Видео загружается и взрывается <strong>мгновенно (0 мс задержки)</strong> со звуком при открытии!
-      </p>
-
-      <!-- Interactive Bait Test Button -->
-      <div class="bait-box" onclick="triggerBesroll()">
-        <button class="pulse-button">
-          <span>🚀 Проверить мгновенный взрыв (0 мс)</span>
-        </button>
-        <p style="margin-top: 14px; font-size: 0.9rem; color: var(--text-dim);">
-          (Нажмите, чтобы увидеть, как сработает «Бесролл» у вашего друга)
-        </p>
-      </div>
-    </div>
-
-    <!-- VIRAL GENERATOR STUDIO (Make your own trap) -->
-    <div class="glass-card" id="generator-section">
-      <div class="header-badge" style="background: rgba(0, 242, 254, 0.2); color: #00f2fe;">🎯 Студия Ловушек</div>
-      <h2>⚡️ Создай свою ссылку-ловушку за 5 секунд</h2>
-      <p class="subtitle">
-        Вставь ссылку на любую настоящую новость — в Telegram и WhatsApp отобразится официальное превью статьи, а при клике включится Беслан!
-      </p>
-
-      <!-- Smart URL Scraper Input -->
-      <div style="background: rgba(0,0,0,0.3); padding: 18px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08);">
-        <label class="input-label">🔗 ВСТАВЬ ССЫЛКУ НА ЛЮБУЮ НОВОСТЬ / СТАТЬЮ / САЙТ:</label>
-        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <input type="text" id="target-url-input" class="input-field" placeholder="https://tass.ru/..., https://ria.ru/... или https://youtube.com/..." style="flex: 1; min-width: 240px;">
-          <button class="btn btn-primary" id="btn-scrape" onclick="scrapeAndGenerate()">
-            ⚡️ Распаковать
-          </button>
-        </div>
-      </div>
-
-      <!-- Quick Preset Buttons -->
-      <div style="margin-top: 18px;">
-        <label class="input-label">ИЛИ ВЫБЕРИ ГОТОВЫЙ ШАБЛОН В 1 КЛИК:</label>
-        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px;">
-          <button class="btn btn-secondary" style="font-size: 0.85rem; padding: 8px 14px;" onclick="applyPreset('gta6')">
-            🎮 Слив GTA 6
-          </button>
-          <button class="btn btn-secondary" style="font-size: 0.85rem; padding: 8px 14px;" onclick="applyPreset('tg_premium')">
-            🎁 Подарок TG Premium
-          </button>
-          <button class="btn btn-secondary" style="font-size: 0.85rem; padding: 8px 14px;" onclick="applyPreset('gossip')">
-            👀 Личная интрига
-          </button>
-          <button class="btn btn-secondary" style="font-size: 0.85rem; padding: 8px 14px;" onclick="applyPreset('exam')">
-            📊 Таблица с баллами
-          </button>
-        </div>
-      </div>
-
-      <!-- Live Customizer Form -->
-      <div style="margin-top: 20px; display: grid; grid-template-columns: 1fr; gap: 12px;">
-        <div>
-          <label class="input-label">Заголовок превью (будет видно в чате):</label>
-          <input type="text" id="custom-title" class="input-field" placeholder="Сенсационный заголовок..." oninput="updateLivePreview()">
-        </div>
-        <div>
-          <label class="input-label">Краткое описание:</label>
-          <input type="text" id="custom-desc" class="input-field" placeholder="Текст превью новости..." oninput="updateLivePreview()">
-        </div>
-        <div>
-          <label class="input-label">Ссылка на картинку (обложка):</label>
-          <input type="text" id="custom-img" class="input-field" placeholder="https://images.unsplash.com/..." oninput="updateLivePreview()">
-        </div>
-      </div>
-
-      <!-- Live Telegram Preview Box -->
-      <div style="margin-top: 24px;">
-        <label class="input-label">👁 ЖИВОЙ ПРЕДПРОСМОТР В TELEGRAM / WHATSAPP:</label>
-        <div class="telegram-preview-card">
-          <div class="tg-domain" id="preview-domain">tass.ru</div>
-          <div class="tg-title" id="preview-title">Сенсационный заголовок появится здесь</div>
-          <div class="tg-desc" id="preview-desc">Краткое описание публикации...</div>
-          <img id="preview-img" src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800" class="tg-img" alt="Preview">
-        </div>
-      </div>
-
-      <!-- Generated Share Box -->
-      <div style="margin-top: 24px; padding: 20px; background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.3); border-radius: 14px;">
-        <label class="input-label" style="color: var(--accent-cyan);">🚀 ТВОЯ ГОТОВАЯ ССЫЛКА-ЛОВУШКА:</label>
-        <input type="text" id="generated-link" class="input-field" readonly style="margin-top: 6px; background: rgba(0,0,0,0.6); color: var(--accent-cyan); font-weight: 600;" onclick="this.select()">
-        
-        <div style="display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap;">
-          <button class="btn btn-primary" onclick="copyGeneratedLink()" style="flex: 1; min-width: 200px;">
-            📋 Скопировать ссылку
-          </button>
-          <button class="btn btn-secondary" onclick="shareToTelegram()">
-            ✈️ Отправить в Telegram
-          </button>
-          <button class="btn btn-secondary" onclick="shareToWhatsApp()">
-            💬 В WhatsApp
-          </button>
-          <button class="btn btn-secondary" onclick="shareToVK()">
-            📱 В VK
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Artist Card -->
-    <div class="glass-card" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
-      <div>
-        <h3 style="font-size: 1.2rem; margin-bottom: 4px; color: #fff;">🎵 Музыка: Беслан Тлихураев</h3>
-        <p style="color: var(--text-dim); font-size: 0.95rem;">Слушайте и поддерживайте артиста в Instagram: <strong>@besikraev</strong></p>
-      </div>
-      <div style="display: flex; gap: 12px;">
-        <a href="https://www.instagram.com/besikraev/" target="_blank" class="btn btn-secondary">
-          📸 Instagram
-        </a>
-        <a href="https://www.instagram.com/reel/DcQU8MDAMpV/" target="_blank" class="btn btn-primary">
-          🎵 Reels с треком
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Jumpscare / Fullscreen Drop Mode -->
-  <div id="drop-container">
-    <div class="beslan-banner">
-      <div class="beslan-title">👑 ВЫ БЫЛИ ЗАБЕСЛАНЕНЫ! 👑</div>
-      <div class="beslan-subtitle">You just got Beslaned by @besikraev</div>
-    </div>
-
-    <div class="video-frame">
-      <video id="beslan-video" src="assets/beslan.mp4" playsinline loop preload="auto"></video>
-      <iframe id="beslan-iframe" src="about:blank" width="100%" height="100%" frameborder="0" scrolling="no" allowtransparency="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-    </div>
-
-    <div class="action-bar">
-      <button class="btn btn-primary" onclick="scrollToHunterStudio()">
-        😈 Разыграть друга этой ссылкой
-      </button>
-      <a href="https://www.instagram.com/reel/DcQU8MDAMpV/" target="_blank" class="btn btn-secondary">
-        🎵 Полный трек в Instagram
+  <!-- 2007 Classic Retro Header -->
+  <header class="retro-header">
+    <div class="retro-header-inner">
+      <a href="index.html" class="yt-logo">
+        Bes<span class="logo-box">Roll</span>
       </a>
-      <button class="btn btn-secondary" onclick="closeBesroll()">
-        ✖️ Закрыть
-      </button>
+      
+      <div class="header-search">
+        <input type="text" id="header-search-box" placeholder="Поиск по мемам 2008...">
+        <button class="glossy-btn" onclick="triggerBesroll()">Поиск</button>
+      </div>
+
+      <div class="retro-nav-links">
+        <a href="https://moscow.qtickets.events/242585-puteshestvie-v-detstvo" target="_blank" style="color: #cc181e; font-weight: bold;">🎟 Концерт «В детство»</a> |
+        <a href="https://t.me/besik_raev" target="_blank">Telegram @besik_raev</a> |
+        <a href="https://www.instagram.com/besikraev/" target="_blank">Instagram</a>
+      </div>
     </div>
+  </header>
 
-    <!-- Hunter Studio inside Drop Mode (in the exact same window!) -->
-    <div id="hunter-studio" class="glass-card" style="margin-top: 20px; width: 100%; max-width: 680px; text-align: left;">
-      <div class="header-badge" style="background: rgba(0, 242, 254, 0.2); color: #00f2fe;">🎯 Очередь за тобой</div>
-      <h2>Разыграй друга прямо сейчас</h2>
-      <p class="subtitle" style="font-size: 0.95rem;">
-        Вставь ссылку на любую новость — мы скопируем её превью, а друг попадет на этот же Бесролл!
-      </p>
+  <!-- Main Grid Layout -->
+  <div class="page-container">
+    
+    <!-- LEFT MAIN COLUMN -->
+    <main class="main-column">
+      
+      <!-- Classic 2007 Video Player Card -->
+      <div class="video-player-card">
+        <div class="video-screen-wrapper" id="video-wrapper" onclick="triggerBesroll()">
+          <video id="beslan-video" src="assets/beslan.mp4" playsinline loop preload="auto"></video>
+          <iframe id="beslan-iframe" src="about:blank" width="100%" height="100%" frameborder="0" scrolling="no" allow="autoplay; clipboard-write; encrypted-media"></iframe>
 
-      <div style="background: rgba(0,0,0,0.3); padding: 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
-        <label class="input-label">ССЫЛКА НА НОВОСТЬ:</label>
-        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <input type="text" id="hunter-url-input" class="input-field" placeholder="https://tass.ru/... или https://ria.ru/..." style="flex: 1; min-width: 200px;">
-          <button class="btn btn-primary" onclick="scrapeFromHunter()">
-            ⚡️ Создать
-          </button>
+          <!-- Big Play Button Overlay -->
+          <div class="play-overlay-screen" id="play-overlay">
+            <div class="retro-big-play-btn">▶</div>
+            <div style="color: #ffffff; font-weight: bold; font-size: 13px; text-shadow: 0 1px 3px rgba(0,0,0,0.8);">
+              Нажмите, чтобы включить мгновенно (0 мс)
+            </div>
+          </div>
+        </div>
+
+        <!-- Controller Bar (Flash Style) -->
+        <div class="retro-player-bar">
+          <div class="player-controls-left">
+            <button class="play-toggle-btn" onclick="triggerBesroll()">► Play</button>
+            <span class="time-counter">0:00 / 0:15</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="hq-badge">HQ</span>
+            <span style="cursor: pointer;" onclick="triggerBesroll()">🔊 100%</span>
+          </div>
         </div>
       </div>
 
-      <div style="margin-top: 14px;">
-        <label class="input-label">ГОТОВАЯ ССЫЛКА-ЛОВУШКА ДЛЯ ДРУГА:</label>
-        <input type="text" id="hunter-generated-link" class="input-field" readonly style="color: var(--accent-cyan); background: rgba(0,0,0,0.5);" onclick="this.select()">
+      <!-- Video Meta & Stats -->
+      <div class="retro-box video-meta-section">
+        <h1 class="video-headline">Besik Raev — «Останься музыка» (HQ Official 2008)</h1>
         
-        <div style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
-          <button class="btn btn-primary" onclick="copyHunterLink()" style="flex: 1;">
-            📋 Скопировать ссылку
-          </button>
-          <button class="btn btn-secondary" onclick="shareHunterTelegram()">
-            ✈️ В Telegram
-          </button>
-          <button class="btn btn-secondary" onclick="shareHunterWhatsApp()">
-            💬 В WhatsApp
-          </button>
+        <div class="video-sub-bar">
+          <div class="author-badge">
+            <div class="author-avatar" style="background: url('assets/beslan_avatar.png') center/cover;"></div>
+            <div>
+              <a href="https://www.instagram.com/besikraev/" target="_blank" class="author-name">Besik Raev (@besikraev)</a>
+              <div style="font-size: 11px; color: var(--text-muted);">Добавлено: 15 апр. 2008 г.</div>
+            </div>
+            <a href="https://www.instagram.com/besikraev/" target="_blank" class="glossy-btn glossy-btn-yellow" style="margin-left: 8px;">
+              + Подписаться
+            </a>
+          </div>
+
+          <div class="stats-box">
+            <div class="stars-rating" title="Рейтинг: 5 звезд" onclick="rateVideo()">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <div class="views-count" id="views-count-display">1 337 420 просмотров</div>
+          </div>
+        </div>
+
+        <!-- Action Buttons (2007 Style) -->
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <a href="https://moscow.qtickets.events/242585-puteshestvie-v-detstvo" target="_blank" class="glossy-btn glossy-btn-red" style="font-weight: 800; padding: 6px 16px;">
+            🎟 Билеты на концерт «В детство» (19 сен) 🚂
+          </a>
+          <a href="#generator-section" class="glossy-btn glossy-btn-yellow" onclick="switchTab('tab-generator')" style="font-weight: bold; padding: 6px 14px;">
+            😈 Разыграть друга (Создать ловушку)
+          </a>
+          <a href="https://t.me/besik_raev" target="_blank" class="glossy-btn">
+            ✈️ Telegram @besik_raev
+          </a>
+          <a href="https://www.instagram.com/besikraev/" target="_blank" class="glossy-btn">
+            📸 Instagram
+          </a>
+        </div>
+      </div>
+
+      <!-- TABS SECTION: GENERATOR STUDIO & COMMENTS -->
+      <div class="retro-box" id="generator-section">
+        
+        <!-- Tab Headers -->
+        <div class="retro-tabs">
+          <div class="retro-tab-item active" id="tab-btn-generator" onclick="switchTab('tab-generator')">
+            ⚡️ Студия Ловушек (Генератор)
+          </div>
+          <div class="retro-tab-item" id="tab-btn-comments" onclick="switchTab('tab-comments')">
+            💬 Комментарии (42)
+          </div>
+          <div class="retro-tab-item" id="tab-btn-about" onclick="switchTab('tab-about')">
+            ℹ️ О проекте «Бесроллинг»
+          </div>
+        </div>
+
+        <!-- TAB 1: GENERATOR -->
+        <div id="tab-content-generator">
+          <p style="color: #444; margin-bottom: 12px; font-size: 12px;">
+            Вставьте ссылку на <strong>любую новость</strong> или статью — мы скопируем её официальное превью в Telegram/WhatsApp, а при открытии друг словит мгновенный Бесролл!
+          </p>
+
+          <!-- Scraper Form -->
+          <div style="background: #fbf9f4; border: 1px solid #dcdad5; padding: 10px; border-radius: 4px; margin-bottom: 12px;">
+            <label style="font-weight: bold; font-size: 11px; color: #555; display: block; margin-bottom: 4px;">
+              🔗 ССЫЛКА НА ЛЮБУЮ НОВОСТЬ / СТАТЬЮ:
+            </label>
+            <div style="display: flex; gap: 6px;">
+              <input type="text" id="target-url-input" class="bevel-input" placeholder="https://tass.ru/..., https://ria.ru/... или https://youtube.com/...">
+              <button class="glossy-btn glossy-btn-red" id="btn-scrape" onclick="scrapeAndGenerate()">
+                ⚡️ Распаковать
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Presets -->
+          <div style="margin-bottom: 14px;">
+            <div style="font-size: 11px; font-weight: bold; color: #666; margin-bottom: 4px;">ИЛИ ВЫБЕРИТЕ ШАБЛОН НОСТАЛЬГИИ (35+):</div>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <button class="glossy-btn" onclick="applyPreset('vhs_archive')">📼 VHS Архив 90-х</button>
+              <button class="glossy-btn" onclick="applyPreset('childhood_taste')">🍬 Вкус детства</button>
+              <button class="glossy-btn" onclick="applyPreset('tape_song')">📻 Песня с кассеты</button>
+              <button class="glossy-btn" onclick="applyPreset('dendy_sega')">🕹 Dendy & Sega</button>
+              <button class="glossy-btn" onclick="applyPreset('school_album')">📸 Школьный архив</button>
+            </div>
+          </div>
+
+          <!-- Customizer Inputs -->
+          <div style="display: grid; grid-template-columns: 1fr; gap: 8px; margin-bottom: 12px;">
+            <div>
+              <label style="font-size: 11px; font-weight: bold; color: #666;">Заголовок (будет видно в чате):</label>
+              <input type="text" id="custom-title" class="bevel-input" placeholder="Сенсационный заголовок..." oninput="updateLivePreview()">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: bold; color: #666;">Краткое описание:</label>
+              <input type="text" id="custom-desc" class="bevel-input" placeholder="Текст превью новости..." oninput="updateLivePreview()">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: bold; color: #666; display: flex; justify-content: space-between; align-items: center;">
+                <span>Ссылка на картинку (обложка):</span>
+                <span id="upload-status" style="font-weight: normal; color: #0033cc; font-size: 10px;"></span>
+              </label>
+              <div style="display: flex; gap: 6px; margin-top: 2px;">
+                <input type="text" id="custom-img" class="bevel-input" placeholder="https://... или выберите файл" oninput="updateLivePreview()" style="flex: 1;">
+                <input type="file" id="image-file-input" accept="image/*" style="display: none;" onchange="handleImageFileUpload(event)">
+                <button type="button" class="glossy-btn" onclick="document.getElementById('image-file-input').click()" style="white-space: nowrap;">
+                  📁 Загрузить фото
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Messenger Preview -->
+          <div style="margin-bottom: 14px;">
+            <label style="font-size: 11px; font-weight: bold; color: #666;">👁 Предпросмотр карточки (Telegram / WhatsApp / VK):</label>
+            <div class="retro-preview-bubble">
+              <div class="retro-preview-domain" id="preview-domain">tass.ru</div>
+              <div class="retro-preview-title" id="preview-title">Сенсационный заголовок появится здесь</div>
+              <div class="retro-preview-desc" id="preview-desc">Краткое описание публикации...</div>
+              <img id="preview-img" src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800" class="retro-preview-img" alt="Preview">
+            </div>
+          </div>
+
+          <!-- Share Result -->
+          <div style="background: #eef4fb; border: 1px solid #b6d1f2; padding: 12px; border-radius: 4px;">
+            <label style="font-size: 11px; font-weight: bold; color: #0033cc; display: block; margin-bottom: 4px;">
+              🚀 ГОТОВАЯ ССЫЛКА-ЛОВУШКА ДЛЯ ДРУГА:
+            </label>
+            <input type="text" id="generated-link" class="bevel-input" readonly style="font-weight: bold; color: #0033cc; background: #ffffff;" onclick="this.select()">
+            
+            <div style="display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap;">
+              <button class="glossy-btn glossy-btn-red" onclick="copyGeneratedLink()" style="flex: 1;">
+                📋 Скопировать ссылку
+              </button>
+              <button class="glossy-btn" onclick="shareToTelegram()">
+                ✈️ В Telegram
+              </button>
+              <button class="glossy-btn" onclick="shareToWhatsApp()">
+                💬 В WhatsApp
+              </button>
+              <button class="glossy-btn" onclick="shareToVK()">
+                📱 В VK
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: COMMENTS (2008 SLANG) -->
+        <div id="tab-content-comments" style="display: none;">
+          <div class="retro-comment">
+            <div class="comment-user-box">👤</div>
+            <div>
+              <span class="comment-author">xX_ShadowGamer_Xx</span>
+              <span class="comment-date">10 минут назад</span>
+              <div class="comment-text">Первый нах!!!! реально думал что слив той записи vhs 🤣🤣</div>
+            </div>
+          </div>
+
+          <div class="retro-comment">
+            <div class="comment-user-box">🎸</div>
+            <div>
+              <span class="comment-author">RockStar_2008</span>
+              <span class="comment-date">2 часа назад</span>
+              <div class="comment-text">Скинул другу в аську (ICQ) под видом таблицы сессии, он чуть со стула не упал! Беслан легенда!</div>
+            </div>
+          </div>
+
+          <div class="retro-comment">
+            <div class="comment-user-box">🎧</div>
+            <div>
+              <span class="comment-author">MusicLover_99</span>
+              <span class="comment-date">вчера</span>
+              <div class="comment-text">Трек у Беслана реально качает, когда в iTunes релиз? Ставлю 5 звёзд ⭐⭐⭐⭐⭐</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: ABOUT -->
+        <div id="tab-content-about" style="display: none;">
+          <div style="background: linear-gradient(135deg, #fffdf8 0%, #fff7ea 100%); border: 2px dashed #e29547; border-radius: 8px; padding: 16px; margin-bottom: 16px; position: relative;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px dashed #e29547; padding-bottom: 8px;">
+              <span style="font-size: 16px; font-weight: bold; color: #b45309;">🚂 БИЛЕТ В ДЕТСТВО</span>
+              <span style="background: #cc181e; color: #fff; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 3px;">BESIK RAEV</span>
+            </div>
+            
+            <h3 style="font-size: 16px; font-weight: 800; color: #1e293b; margin-bottom: 8px;">У нас есть билеты в детство! ✨</h3>
+            <p style="font-size: 13px; color: #334155; line-height: 1.6; margin-bottom: 12px;">
+              <strong>Поезд отправляется 19 сентября в 17:00 🚂</strong><br>
+              📍 <strong>Место сбора:</strong> КДЦ «Полярный», зал «Зрительный» (ул. Полярная, 9).<br><br>
+              Берите с собой хорошее настроение и пустые карманы — мы наполним их музыкой и улыбками.
+            </p>
+
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <a href="https://moscow.qtickets.events/242585-puteshestvie-v-detstvo" target="_blank" class="glossy-btn glossy-btn-red" style="font-weight: bold; padding: 8px 16px;">
+                🎟 Плацкарт уже ждёт вас (Купить билет) 👈
+              </a>
+              <a href="https://t.me/besik_raev" target="_blank" class="glossy-btn" style="padding: 8px 14px;">
+                ✈️ Telegram-канал @besik_raev
+              </a>
+            </div>
+          </div>
+
+          <div style="font-size: 12px; color: #555; line-height: 1.6;">
+            <strong>Бесроллинг</strong> — это трибьют эпохе золотого интернета 2007-2008 годов и легендарному Рикроллу (Rickrolling).<br>
+            Проект создан для вирусного продвижения авторского трека артиста <strong>Besik Raev</strong> «Останься музыка».<br><br>
+            Официальные страницы артиста:
+            <a href="https://t.me/besik_raev" target="_blank" style="color: var(--text-link); font-weight: bold;">Telegram @besik_raev</a> •
+            <a href="https://www.instagram.com/besikraev/" target="_blank" style="color: var(--text-link); font-weight: bold;">Instagram @besikraev</a>.
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- RIGHT SIDEBAR (2007 Related Videos) -->
+    <aside class="side-column">
+      
+      <!-- Author Card -->
+      <div class="retro-box">
+        <div class="retro-box-header">
+          <span>Артист проекта</span>
+          <span style="font-size: 10px; color: #999;">Verified</span>
+        </div>
+        <div style="text-align: center; padding: 6px 0;">
+          <img src="assets/beslan_avatar.png" style="width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 2px solid #cc181e; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-bottom: 8px;" alt="Besik Raev">
+          <div style="font-size: 15px; font-weight: bold; color: #111;">Besik Raev</div>
+          <div style="color: #666; font-size: 11px; margin-top: 2px;">Концерт «Путешествие в детство» 🚂</div>
+          <div style="font-size: 11px; color: #b45309; font-weight: bold; margin-top: 4px; background: #fff7ea; border: 1px dashed #e29547; border-radius: 4px; padding: 4px;">
+            19 сентября • 17:00 • КДЦ «Полярный»
+          </div>
+          
+          <a href="https://moscow.qtickets.events/242585-puteshestvie-v-detstvo" target="_blank" class="glossy-btn glossy-btn-red" style="margin-top: 10px; width: 100%; justify-content: center; font-weight: 800;">
+            🎟 Купить билет (Плацкарт)
+          </a>
+          <a href="https://t.me/besik_raev" target="_blank" class="glossy-btn" style="margin-top: 6px; width: 100%; justify-content: center;">
+            ✈️ Telegram @besik_raev
+          </a>
+        </div>
+      </div>
+
+      <!-- Related Videos (Presets) -->
+      <div class="retro-box">
+        <div class="retro-box-header">
+          <span>Похожие видео (Пресеты 35+)</span>
+        </div>
+
+        <div class="related-video-item" onclick="applyPreset('vhs_archive')">
+          <div class="related-thumb-box">
+            <img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=200" class="related-thumb-img">
+            <span class="related-timestamp">4:20</span>
+          </div>
+          <div>
+            <div class="related-title">📼 VHS Архив — Школьная дискотека 1997 года</div>
+            <div class="related-author">RetroАрхив90х</div>
+            <div class="related-views">1,840,200 просмотров</div>
+          </div>
+        </div>
+
+        <div class="related-video-item" onclick="applyPreset('childhood_taste')">
+          <div class="related-thumb-box">
+            <img src="https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=200" class="related-thumb-img">
+            <span class="related-timestamp">2:15</span>
+          </div>
+          <div>
+            <div class="related-title">🍬 Возвращение жвачек Turbo и вкусов 90-х</div>
+            <div class="related-author">Ностальгия90</div>
+            <div class="related-views">2,150,400 просмотров</div>
+          </div>
+        </div>
+
+        <div class="related-video-item" onclick="applyPreset('tape_song')">
+          <div class="related-thumb-box">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200" class="related-thumb-img">
+            <span class="related-timestamp">3:30</span>
+          </div>
+          <div>
+            <div class="related-title">📻 Та самая песня с кассеты из 1999 года</div>
+            <div class="related-author">КассетныйМагнитофон</div>
+            <div class="related-views">3,420,100 просмотров</div>
+          </div>
+        </div>
+
+        <div class="related-video-item" onclick="applyPreset('dendy_sega')">
+          <div class="related-thumb-box">
+            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=200" class="related-thumb-img">
+            <span class="related-timestamp">5:12</span>
+          </div>
+          <div>
+            <div class="related-title">🕹 1000 игр Dendy и Sega онлайн в браузере</div>
+            <div class="related-author">DendyClub_Old</div>
+            <div class="related-views">1,670,300 просмотров</div>
+          </div>
+        </div>
+
+        <div class="related-video-item" onclick="applyPreset('school_album')">
+          <div class="related-thumb-box">
+            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=200" class="related-thumb-img">
+            <span class="related-timestamp">1:50</span>
+          </div>
+          <div>
+            <div class="related-title">📸 Оцифрованный архив выпускников 1995–2005</div>
+            <div class="related-author">ШкольныйАрхив</div>
+            <div class="related-views">980,500 просмотров</div>
+          </div>
+        </div>
+
+      </div>
+
+    </aside>
+
+  </div>
+
+  <!-- Jumpscare / Fullscreen Retro Drop Mode -->
+  <div id="drop-container">
+    <div class="vintage-drop-box">
+      <div class="drop-banner">👑 ВЫ БЫЛИ заБЕСроллены! (YOU GOT BESLANED) 👑</div>
+      
+      <div class="video-screen-wrapper" style="border-radius: 4px; overflow: hidden; margin-bottom: 12px;">
+        <video id="beslan-drop-video" src="assets/beslan.mp4" playsinline loop preload="auto"></video>
+        <iframe id="beslan-drop-iframe" src="about:blank" width="100%" height="100%" frameborder="0"></iframe>
+      </div>
+
+      <div style="display: flex; gap: 8px; justify-content: center; margin-bottom: 14px;">
+        <button class="glossy-btn glossy-btn-red" onclick="scrollToStudioFromDrop()">
+          😈 Разыграть друга (Создать ловушку)
+        </button>
+        <a href="https://www.instagram.com/reel/DcQU8MDAMpV/" target="_blank" class="glossy-btn">
+          🎵 Полный трек в Instagram
+        </a>
+        <button class="glossy-btn" onclick="closeBesroll()">
+          ✖️ Закрыть
+        </button>
+      </div>
+
+      <!-- Quick Studio inside Drop -->
+      <div style="background: #fbf9f4; border: 1px solid #dcdad5; padding: 12px; border-radius: 4px;">
+        <label style="font-size: 11px; font-weight: bold; color: #555;">⚡️ РАЗЫГРАЙ ДРУГА ПРЯМО СЕЙЧАС (Вставь ссылку на новость):</label>
+        <div style="display: flex; gap: 6px; margin-top: 4px;">
+          <input type="text" id="drop-target-url" class="bevel-input" placeholder="https://ria.ru/... или https://tass.ru/...">
+          <button class="glossy-btn glossy-btn-red" onclick="scrapeFromDrop()">⚡️ Сгенерировать</button>
+        </div>
+        <div style="margin-top: 8px;">
+          <input type="text" id="drop-generated-link" class="bevel-input" readonly style="color: #0033cc; font-weight: bold;" onclick="this.select()">
+          <div style="display: flex; gap: 6px; margin-top: 6px;">
+            <button class="glossy-btn glossy-btn-red" onclick="copyDropLink()" style="flex: 1;">📋 Скопировать</button>
+            <button class="glossy-btn" onclick="shareToTelegram()">✈️ Telegram</button>
+            <button class="glossy-btn" onclick="shareToWhatsApp()">💬 WhatsApp</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- 🍪 Cookie & Fake News Gate Overlay (100% Unmuted Autoplay Unlock) -->
+  <div id="cookie-gate" class="cookie-gate-overlay" style="display: none;">
+    <div class="fake-news-page">
+      <div class="news-topbar">
+        <div class="news-logo">🔴 СРОЧНЫЙ ВЫПУСК НОВОСТЕЙ</div>
+        <div class="news-date">Эксклюзив • Прямой эфир</div>
+      </div>
+
+      <div class="news-article-preview">
+        <div class="news-category">ГЛАВНОЕ СОБЫТИЕ ДНЯ</div>
+        <h1 class="news-title" id="gate-news-title">Срочное видеообращение: детали и полная видеозапись</h1>
+        <div class="news-image-box" onclick="acceptCookieAndPlay()" style="cursor: pointer;">
+          <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800" id="gate-news-img" class="news-img" alt="News Image">
+        </div>
+      </div>
+
+      <div class="cookie-consent-modal">
+        <div class="cookie-modal-header">
+          <span style="font-size: 20px;">🍪</span>
+          <strong>Уведомление об использовании файлов Cookie</strong>
+        </div>
+        <p class="cookie-modal-text">
+          Для доступа к эксклюзивным видеоматериалам и продолжения чтения подтвердите согласие на обработку файлов cookie.
+        </p>
+        <div class="cookie-modal-actions">
+          <button class="cookie-accept-btn" onclick="acceptCookieAndPlay()">
+            ✅ Принять cookies и продолжить чтение
+          </button>
+        </div>
+        <div class="cookie-modal-subtext">
+          Нажимая кнопку, вы подтверждаете согласие на воспроизведение медиаматериалов (18+).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DVD Screensaver Floating Meme Pill -->
+  <div id="dvd-pill">👑 <span>Вы были заБЕСроллены!</span></div>
 
   <script src="js/app.js"></script>
-  <script>
-    function scrollToHunterStudio() {
-      const studio = document.getElementById('hunter-studio');
-      if (studio) {
-        studio.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
-    async function scrapeFromHunter() {
-      const input = document.getElementById('hunter-url-input');
-      if (!input || !input.value.trim()) {
-        showToast('⚠️ Вставьте ссылку на новость!');
-        return;
-      }
-      const targetInput = document.getElementById('target-url-input');
-      if (targetInput) targetInput.value = input.value.trim();
-      await scrapeAndGenerate();
-      
-      const genLink = document.getElementById('generated-link');
-      const hunterGenLink = document.getElementById('hunter-generated-link');
-      if (genLink && hunterGenLink) {
-        hunterGenLink.value = genLink.value;
-      }
-    }
-
-    function copyHunterLink() {
-      const hunterGenLink = document.getElementById('hunter-generated-link');
-      if (hunterGenLink && hunterGenLink.value) {
-        navigator.clipboard.writeText(`${currentTrapData.t}\n${hunterGenLink.value}`);
-        showToast('✅ Ссылка скопирована!');
-      } else {
-        copyGeneratedLink();
-      }
-    }
-
-    function shareHunterTelegram() {
-      shareToTelegram();
-    }
-
-    function shareHunterWhatsApp() {
-      shareToWhatsApp();
-    }
-  </script>
 </body>
 </html>

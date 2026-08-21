@@ -19,4 +19,4 @@ desktop.ini
 !.env.example
 
 # Git nested in subrepos
-vibe/.git/
+vibe/
