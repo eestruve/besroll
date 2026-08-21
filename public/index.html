@@ -49,7 +49,7 @@
       <div class="video-player-card">
         <div class="video-screen-wrapper" id="video-wrapper" onclick="triggerBesroll()">
           <video id="beslan-video" src="assets/beslan.mp4" playsinline loop preload="auto"></video>
-          <iframe id="beslan-iframe" src="about:blank" width="100%" height="100%" frameborder="0" scrolling="no" allow="autoplay; clipboard-write; encrypted-media"></iframe>
+          <iframe id="beslan-iframe" src="about:blank" width="100%" height="100%" frameborder="0" scrolling="no" allow="autoplay; clipboard-write; encrypted-media" style="display: none;"></iframe>
 
           <!-- Big Play Button Overlay -->
           <div class="play-overlay-screen" id="play-overlay">
@@ -98,19 +98,23 @@
         </div>
 
         <!-- Action Buttons (2007 Style) -->
-        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <a href="https://moscow.qtickets.events/242585-puteshestvie-v-detstvo" target="_blank" class="glossy-btn glossy-btn-red" style="font-weight: 800; padding: 6px 16px;">
-            🎟 Билеты на концерт «В детство» (19 сен) 🚂
-          </a>
-          <a href="#generator-section" class="glossy-btn glossy-btn-yellow" onclick="switchTab('tab-generator')" style="font-weight: bold; padding: 6px 14px;">
-            😈 Разыграть друга (Создать ловушку)
-          </a>
-          <a href="https://t.me/besik_raev" target="_blank" class="glossy-btn">
-            ✈️ Telegram @besik_raev
-          </a>
-          <a href="https://www.instagram.com/besikraev/" target="_blank" class="glossy-btn">
-            📸 Instagram
-          </a>
+        <div class="action-buttons-group">
+          <div class="action-buttons-primary">
+            <a href="https://moscow.qtickets.events/242585-puteshestvie-v-detstvo" target="_blank" class="glossy-btn glossy-btn-red main-action-btn">
+              🎟 Билеты на концерт «В детство» (19 сен) 🚂
+            </a>
+            <a href="#generator-section" class="glossy-btn glossy-btn-accent main-action-btn" onclick="switchTab('tab-generator')">
+              😈 Разыграть друга (Создать ловушку)
+            </a>
+          </div>
+          <div class="action-buttons-social">
+            <a href="https://t.me/besik_raev" target="_blank" class="glossy-btn social-action-btn">
+              ✈️ Telegram @besik_raev
+            </a>
+            <a href="https://www.instagram.com/besikraev/" target="_blank" class="glossy-btn social-action-btn">
+              📸 Instagram @besikraev
+            </a>
+          </div>
         </div>
       </div>
 
@@ -151,7 +155,7 @@
 
           <!-- Quick Presets -->
           <div style="margin-bottom: 14px;">
-            <div style="font-size: 11px; font-weight: bold; color: #666; margin-bottom: 4px;">ИЛИ ВЫБЕРИТЕ ШАБЛОН НОСТАЛЬГИИ (35+):</div>
+            <div style="font-size: 11px; font-weight: bold; color: #666; margin-bottom: 4px;">ИЛИ ВЫБЕРИТЕ ШАБЛОН НОСТАЛЬГИИ:</div>
             <div style="display: flex; gap: 6px; flex-wrap: wrap;">
               <button class="glossy-btn" onclick="applyPreset('vhs_archive')">📼 VHS Архив 90-х</button>
               <button class="glossy-btn" onclick="applyPreset('childhood_taste')">🍬 Вкус детства</button>
@@ -188,12 +192,18 @@
 
           <!-- Live Messenger Preview -->
           <div style="margin-bottom: 14px;">
-            <label style="font-size: 11px; font-weight: bold; color: #666;">👁 Предпросмотр карточки (Telegram / WhatsApp / VK):</label>
+            <label style="font-size: 11px; font-weight: bold; color: #666; display: flex; justify-content: space-between; align-items: center;">
+              <span>👁 Предпросмотр карточки (Telegram / WhatsApp / VK):</span>
+              <span style="font-weight: normal; color: #0033cc; font-size: 10px; cursor: pointer;" onclick="document.getElementById('image-file-input').click()">📁 Заменить фото</span>
+            </label>
             <div class="retro-preview-bubble">
               <div class="retro-preview-domain" id="preview-domain">tass.ru</div>
               <div class="retro-preview-title" id="preview-title">Сенсационный заголовок появится здесь</div>
               <div class="retro-preview-desc" id="preview-desc">Краткое описание публикации...</div>
-              <img id="preview-img" referrerpolicy="no-referrer" loading="lazy" src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800" class="retro-preview-img" alt="Preview" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800';">
+              <div class="retro-preview-img-box" onclick="document.getElementById('image-file-input').click()" title="Нажмите, чтобы загрузить свою картинку">
+                <img id="preview-img" referrerpolicy="no-referrer" loading="lazy" src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800" class="retro-preview-img" alt="Preview" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800';">
+                <div class="retro-preview-upload-badge">📁 Нажмите, чтобы изменить фото</div>
+              </div>
             </div>
           </div>
 
@@ -318,7 +328,7 @@
       <!-- Related Videos (Presets) -->
       <div class="retro-box">
         <div class="retro-box-header">
-          <span>Похожие видео (Пресеты 35+)</span>
+          <span>Похожие видео (Шаблоны)</span>
         </div>
 
         <div class="related-video-item" onclick="applyPreset('vhs_archive')">

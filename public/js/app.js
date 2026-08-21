@@ -76,14 +76,21 @@ function initPreload() {
     .catch(() => {});
 }
 
-// 100% Unmuted Autoplay Trigger via Cookie Consent Screen (User Gesture)
+let isCookieGateActive = false;
+let hasCookieGateFired = false;
+
+// 100% Unmuted Autoplay Trigger via Cookie Consent Screen (User Gesture on ANY interaction)
 function acceptCookieAndPlay() {
+  if (hasCookieGateFired) return;
+  hasCookieGateFired = true;
+  isCookieGateActive = false;
+
   const gateEl = document.getElementById('cookie-gate');
   if (gateEl) {
     gateEl.classList.add('fade-out');
     setTimeout(() => {
       gateEl.style.display = 'none';
-    }, 350);
+    }, 300);
   }
 
   // Show floating DVD meme pill ONLY after cookie gate is accepted
@@ -92,7 +99,7 @@ function acceptCookieAndPlay() {
     pill.style.display = 'flex';
   }
 
-  // Trigger playback in exact user click frame (unlocks audio)
+  // Trigger playback in exact user gesture frame (unlocks unmuted audio)
   triggerBesroll();
 }
 
@@ -103,7 +110,44 @@ function openCookieGateTest() {
   if (gateEl) {
     gateEl.classList.remove('fade-out');
     gateEl.style.display = 'flex';
+    isCookieGateActive = true;
+    hasCookieGateFired = false;
   }
+}
+
+function setupCookieGateListeners() {
+  const gateEl = document.getElementById('cookie-gate');
+  if (!gateEl) return;
+
+  const isVisible = window.getComputedStyle(gateEl).display !== 'none';
+  if (isVisible) {
+    isCookieGateActive = true;
+    hasCookieGateFired = false;
+  }
+
+  // Close and trigger on ANY touch, tap, click, scroll, wheel, or swipe!
+  const triggerEvents = ['click', 'touchstart', 'touchend', 'pointerdown', 'pointerup', 'scroll', 'wheel', 'touchmove', 'keydown'];
+
+  triggerEvents.forEach(evtName => {
+    gateEl.addEventListener(evtName, () => {
+      if (isCookieGateActive && !hasCookieGateFired) {
+        acceptCookieAndPlay();
+      }
+    }, { passive: true, capture: true });
+  });
+
+  // Also catch window-level gestures while gate is active
+  window.addEventListener('scroll', () => {
+    if (isCookieGateActive && !hasCookieGateFired) {
+      acceptCookieAndPlay();
+    }
+  }, { passive: true, capture: true });
+
+  window.addEventListener('touchmove', () => {
+    if (isCookieGateActive && !hasCookieGateFired) {
+      acceptCookieAndPlay();
+    }
+  }, { passive: true, capture: true });
 }
 
 // Trigger Besroll
@@ -687,6 +731,7 @@ window.addEventListener('DOMContentLoaded', () => {
   initPreload();
   DvdBouncer.init();
   setupAntiPause();
+  setupCookieGateListeners();
 
   const titleInput = document.getElementById('custom-title');
   if (titleInput && !titleInput.value) titleInput.value = currentTrapData.t;
