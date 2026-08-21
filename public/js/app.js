@@ -48,12 +48,32 @@ const PRESETS = {
   }
 };
 
-// Preload video
+// Preload video with background memory caching (0ms start)
 function initPreload() {
   const videoEl = document.getElementById('beslan-video');
   const dropVideoEl = document.getElementById('beslan-drop-video');
   if (videoEl) { videoEl.preload = 'auto'; videoEl.load(); }
   if (dropVideoEl) { dropVideoEl.preload = 'auto'; dropVideoEl.load(); }
+
+  // Background Blob prefetch: loads 100% of video into browser RAM while user views cookie screen
+  const videoSrc = (videoEl && videoEl.getAttribute('src')) || 'assets/beslan.mp4';
+  fetch(videoSrc)
+    .then(r => {
+      if (!r.ok) throw new Error();
+      return r.blob();
+    })
+    .then(blob => {
+      const blobUrl = URL.createObjectURL(blob);
+      if (videoEl) {
+        videoEl.src = blobUrl;
+        videoEl.load();
+      }
+      if (dropVideoEl) {
+        dropVideoEl.src = blobUrl;
+        dropVideoEl.load();
+      }
+    })
+    .catch(() => {});
 }
 
 // 100% Unmuted Autoplay Trigger via Cookie Consent Screen (User Gesture)
@@ -66,12 +86,20 @@ function acceptCookieAndPlay() {
     }, 350);
   }
 
+  // Show floating DVD meme pill ONLY after cookie gate is accepted
+  const pill = document.getElementById('dvd-pill');
+  if (pill) {
+    pill.style.display = 'flex';
+  }
+
   // Trigger playback in exact user click frame (unlocks audio)
   triggerBesroll();
 }
 
 function openCookieGateTest() {
   const gateEl = document.getElementById('cookie-gate');
+  const pill = document.getElementById('dvd-pill');
+  if (pill) pill.style.display = 'none'; // Never show meme pill on cookie news screen
   if (gateEl) {
     gateEl.classList.remove('fade-out');
     gateEl.style.display = 'flex';
@@ -93,6 +121,10 @@ function triggerBesroll() {
   viewsCount++;
   const viewsDisplay = document.getElementById('views-count-display');
   if (viewsDisplay) viewsDisplay.innerText = `${viewsCount.toLocaleString('ru-RU')} просмотров`;
+
+  // Show floating DVD meme pill
+  const pill = document.getElementById('dvd-pill');
+  if (pill) pill.style.display = 'flex';
 
   if (videoEl) {
     videoEl.style.display = 'block';
@@ -518,6 +550,15 @@ const DvdBouncer = {
       document.body.appendChild(pill);
     }
     this.el = pill;
+
+    // Check if Cookie Gate is active — never show meme pill on news bait screen!
+    const gateEl = document.getElementById('cookie-gate');
+    const isGateActive = gateEl && gateEl.style.display !== 'none' && window.getComputedStyle(gateEl).display !== 'none';
+    if (isGateActive) {
+      this.el.style.display = 'none';
+    } else {
+      this.el.style.display = 'flex';
+    }
 
     // Random initial direction
     this.vx = (Math.random() > 0.5 ? 1 : -1) * this.baseVx;

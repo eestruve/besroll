@@ -653,10 +653,11 @@ body {
 
 /* DVD Bouncing Meme Badge (Floating Screensaver) */
 #dvd-pill {
+  display: none;
   position: fixed;
   top: 50px;
   left: 50px;
-  z-index: 999999;
+  z-index: 99990;
   background: rgba(15, 15, 20, 0.94);
   color: #ffffff;
   border: 2px solid #ff0055;

@@ -46,6 +46,7 @@ export default async (request: Request) => {
   <meta name="twitter:image" content="${esc(image)}">
 
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="preload" as="video" href="/assets/beslan.mp4" type="video/mp4">
 </head>
 <body>
 
