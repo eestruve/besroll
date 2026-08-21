@@ -174,7 +174,7 @@
                 <span id="upload-status" style="font-weight: normal; color: #0033cc; font-size: 10px;"></span>
               </label>
               <div style="display: flex; gap: 6px; margin-top: 2px;">
-                <input type="text" id="custom-img" class="bevel-input" placeholder="https://... или выберите файл" oninput="updateLivePreview()" style="flex: 1;">
+                <input type="text" id="custom-img" class="bevel-input" placeholder="https://... или выберите файл" oninput="updateLivePreview()" onpaste="setTimeout(updateLivePreview, 50)" onchange="updateLivePreview()" style="flex: 1;">
                 <input type="file" id="image-file-input" accept="image/*" style="display: none;" onchange="handleImageFileUpload(event)">
                 <button type="button" class="glossy-btn" onclick="document.getElementById('image-file-input').click()" style="white-space: nowrap;">
                   📁 Загрузить фото
@@ -190,7 +190,7 @@
               <div class="retro-preview-domain" id="preview-domain">tass.ru</div>
               <div class="retro-preview-title" id="preview-title">Сенсационный заголовок появится здесь</div>
               <div class="retro-preview-desc" id="preview-desc">Краткое описание публикации...</div>
-              <img id="preview-img" src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800" class="retro-preview-img" alt="Preview">
+              <img id="preview-img" referrerpolicy="no-referrer" loading="lazy" src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800" class="retro-preview-img" alt="Preview" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800';">
             </div>
           </div>
 

@@ -314,15 +314,16 @@ async function handleImageFileUpload(e) {
           if (json && json.data && json.data.url) {
             const publicUrl = json.data.url.replace('tmpfiles.org/', 'tmpfiles.org/dl/');
             if (imgInput) imgInput.value = publicUrl;
+            if (prevImg) prevImg.src = publicUrl;
             currentTrapData.i = publicUrl;
             generateTrapUrl();
-            if (statusEl) statusEl.innerText = '✅ Фото загружено!';
-            showToast('✅ Фото готово для Telegram и WhatsApp!');
+            if (statusEl) statusEl.innerText = '✅ Фото готово для мессенджеров!';
+            showToast('✅ Фото загружено и готово для Telegram и WhatsApp!');
           } else {
-            if (statusEl) statusEl.innerText = '✅ Фото готово (локально)';
+            if (statusEl) statusEl.innerText = '✅ Готово (локально)';
           }
         } catch (_) {
-          if (statusEl) statusEl.innerText = '✅ Фото готово';
+          if (statusEl) statusEl.innerText = '✅ Готово';
         }
       }, 'image/jpeg', 0.85);
     };
@@ -336,9 +337,12 @@ function updateLivePreview(customDomain) {
   const descInput = document.getElementById('custom-desc');
   const imgInput = document.getElementById('custom-img');
 
-  if (titleInput && titleInput.value) currentTrapData.t = titleInput.value;
-  if (descInput && descInput.value) currentTrapData.d = descInput.value;
-  if (imgInput && imgInput.value) currentTrapData.i = imgInput.value;
+  if (titleInput) currentTrapData.t = titleInput.value.trim() || "🔥 Срочная новость";
+  if (descInput) currentTrapData.d = descInput.value.trim() || "Подробности по ссылке...";
+  if (imgInput) {
+    const rawVal = imgInput.value.trim();
+    currentTrapData.i = rawVal || "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800";
+  }
 
   const prevTitle = document.getElementById('preview-title');
   const prevDesc = document.getElementById('preview-desc');
@@ -347,7 +351,9 @@ function updateLivePreview(customDomain) {
 
   if (prevTitle) prevTitle.textContent = currentTrapData.t;
   if (prevDesc) prevDesc.textContent = currentTrapData.d;
-  if (prevImg) prevImg.src = currentTrapData.i;
+  if (prevImg) {
+    prevImg.src = currentTrapData.i;
+  }
   
   if (prevDomain) {
     if (customDomain) {
@@ -406,29 +412,45 @@ function applyPreset(key) {
 function copyGeneratedLink() {
   const linkInput = document.getElementById('generated-link');
   const fullUrl = linkInput && linkInput.value ? linkInput.value : generateTrapUrl();
-  const shareText = `${currentTrapData.t}\n${fullUrl}`;
 
+  // Copy EXCLUSIVELY the pure URL (no title) so Telegram/WhatsApp crawlers show the card preview cleanly!
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(shareText).then(() => {
-      showToast('✅ Ссылка скопирована! Отправь её другу в Telegram или WhatsApp.');
+    navigator.clipboard.writeText(fullUrl).then(() => {
+      showToast('✅ Чистая ссылка скопирована! Отправь её в Telegram или WhatsApp.');
     }).catch(() => {
-      prompt('Скопируйте ссылку вручную:', shareText);
+      copyFallback(fullUrl);
     });
   } else {
-    prompt('Скопируйте ссылку вручную:', shareText);
+    copyFallback(fullUrl);
   }
+}
+
+function copyFallback(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try {
+    document.execCommand('copy');
+    showToast('✅ Чистая ссылка скопирована!');
+  } catch (_) {
+    prompt('Скопируйте ссылку:', text);
+  }
+  document.body.removeChild(ta);
 }
 
 function shareToTelegram() {
   const url = generateTrapUrl();
-  const text = currentTrapData.t;
-  window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '_blank');
+  // Pass ONLY the URL parameter so Telegram's crawler displays the OpenGraph preview card cleanly!
+  window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}`, '_blank');
 }
 
 function shareToWhatsApp() {
   const url = generateTrapUrl();
-  const text = `${currentTrapData.t}\n${url}`;
-  window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+  window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(url)}`, '_blank');
 }
 
 function shareToVK() {
