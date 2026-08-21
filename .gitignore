@@ -1,0 +1,22 @@
+# Node / Bun
+node_modules/
+.netlify/
+dist/
+.output/
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Git nested in subrepos
+vibe/.git/

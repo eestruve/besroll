@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Open Graph Meta Tags for Telegram, WhatsApp, Discord, VK -->
+  <meta property="og:title" content="👑 Тот самый секретный трек, который ищут все">
+  <meta property="og:description" content="Эксклюзивный музыкальный релиз Беслана. Нажмите, чтобы послушать!">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800">
+  <meta property="og:type" content="music.song">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <title>Бесроллинг (Besrolling) — Вирусный Генератор Ловушек</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="container">
+    <!-- Main Intro Card -->
+    <div class="glass-card">
+      <div class="header-badge">🔥 Мгновенный Пранк-Плеер</div>
+      <h1>БЕСРОЛЛИНГ</h1>
+      <p class="subtitle">
+        Легендарная механика <strong>Рикролла</strong>, адаптированная для трека Беслана (<strong>@besikraev</strong>). 
+        Видео загружается и взрывается <strong>мгновенно (0 мс задержки)</strong> со звуком при открытии!
+      </p>
+
+      <!-- Interactive Bait Test Button -->
+      <div class="bait-box" onclick="triggerBesroll()">
+        <button class="pulse-button">
+          <span>🚀 Проверить мгновенный взрыв (0 мс)</span>
+        </button>
+        <p style="margin-top: 14px; font-size: 0.9rem; color: var(--text-dim);">
+          (Нажмите, чтобы увидеть, как сработает «Бесролл» у вашего друга)
+        </p>
+      </div>
+    </div>
+
+    <!-- VIRAL GENERATOR STUDIO (Make your own trap) -->
+    <div class="glass-card" id="generator-section">
+      <div class="header-badge" style="background: rgba(0, 242, 254, 0.2); color: #00f2fe;">🎯 Студия Ловушек</div>
+      <h2>⚡️ Создай свою ссылку-ловушку за 5 секунд</h2>
+      <p class="subtitle">
+        Вставь ссылку на любую настоящую новость — в Telegram и WhatsApp отобразится официальное превью статьи, а при клике включится Беслан!
+      </p>
+
+      <!-- Smart URL Scraper Input -->
+      <div style="background: rgba(0,0,0,0.3); padding: 18px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08);">
+        <label class="input-label">🔗 ВСТАВЬ ССЫЛКУ НА ЛЮБУЮ НОВОСТЬ / СТАТЬЮ / САЙТ:</label>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <input type="text" id="target-url-input" class="input-field" placeholder="https://tass.ru/..., https://ria.ru/... или https://youtube.com/..." style="flex: 1; min-width: 240px;">
+          <button class="btn btn-primary" id="btn-scrape" onclick="scrapeAndGenerate()">
+            ⚡️ Распаковать
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Preset Buttons -->
+      <div style="margin-top: 18px;">
+        <label class="input-label">ИЛИ ВЫБЕРИ ГОТОВЫЙ ШАБЛОН В 1 КЛИК:</label>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px;">
+          <button class="btn btn-secondary" style="font-size: 0.85rem; padding: 8px 14px;" onclick="applyPreset('gta6')">
+            🎮 Слив GTA 6
+          </button>
+          <button class="btn btn-secondary" style="font-size: 0.85rem; padding: 8px 14px;" onclick="applyPreset('tg_premium')">
+            🎁 Подарок TG Premium
+          </button>
+          <button class="btn btn-secondary" style="font-size: 0.85rem; padding: 8px 14px;" onclick="applyPreset('gossip')">
+            👀 Личная интрига
+          </button>
+          <button class="btn btn-secondary" style="font-size: 0.85rem; padding: 8px 14px;" onclick="applyPreset('exam')">
+            📊 Таблица с баллами
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Customizer Form -->
+      <div style="margin-top: 20px; display: grid; grid-template-columns: 1fr; gap: 12px;">
+        <div>
+          <label class="input-label">Заголовок превью (будет видно в чате):</label>
+          <input type="text" id="custom-title" class="input-field" placeholder="Сенсационный заголовок..." oninput="updateLivePreview()">
+        </div>
+        <div>
+          <label class="input-label">Краткое описание:</label>
+          <input type="text" id="custom-desc" class="input-field" placeholder="Текст превью новости..." oninput="updateLivePreview()">
+        </div>
+        <div>
+          <label class="input-label">Ссылка на картинку (обложка):</label>
+          <input type="text" id="custom-img" class="input-field" placeholder="https://images.unsplash.com/..." oninput="updateLivePreview()">
+        </div>
+      </div>
+
+      <!-- Live Telegram Preview Box -->
+      <div style="margin-top: 24px;">
+        <label class="input-label">👁 ЖИВОЙ ПРЕДПРОСМОТР В TELEGRAM / WHATSAPP:</label>
+        <div class="telegram-preview-card">
+          <div class="tg-domain" id="preview-domain">tass.ru</div>
+          <div class="tg-title" id="preview-title">Сенсационный заголовок появится здесь</div>
+          <div class="tg-desc" id="preview-desc">Краткое описание публикации...</div>
+          <img id="preview-img" src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800" class="tg-img" alt="Preview">
+        </div>
+      </div>
+
+      <!-- Generated Share Box -->
+      <div style="margin-top: 24px; padding: 20px; background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.3); border-radius: 14px;">
+        <label class="input-label" style="color: var(--accent-cyan);">🚀 ТВОЯ ГОТОВАЯ ССЫЛКА-ЛОВУШКА:</label>
+        <input type="text" id="generated-link" class="input-field" readonly style="margin-top: 6px; background: rgba(0,0,0,0.6); color: var(--accent-cyan); font-weight: 600;" onclick="this.select()">
+        
+        <div style="display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap;">
+          <button class="btn btn-primary" onclick="copyGeneratedLink()" style="flex: 1; min-width: 200px;">
+            📋 Скопировать ссылку
+          </button>
+          <button class="btn btn-secondary" onclick="shareToTelegram()">
+            ✈️ Отправить в Telegram
+          </button>
+          <button class="btn btn-secondary" onclick="shareToWhatsApp()">
+            💬 В WhatsApp
+          </button>
+          <button class="btn btn-secondary" onclick="shareToVK()">
+            📱 В VK
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Artist Card -->
+    <div class="glass-card" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+      <div>
+        <h3 style="font-size: 1.2rem; margin-bottom: 4px; color: #fff;">🎵 Музыка: Беслан Тлихураев</h3>
+        <p style="color: var(--text-dim); font-size: 0.95rem;">Слушайте и поддерживайте артиста в Instagram: <strong>@besikraev</strong></p>
+      </div>
+      <div style="display: flex; gap: 12px;">
+        <a href="https://www.instagram.com/besikraev/" target="_blank" class="btn btn-secondary">
+          📸 Instagram
+        </a>
+        <a href="https://www.instagram.com/reel/DcQU8MDAMpV/" target="_blank" class="btn btn-primary">
+          🎵 Reels с треком
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Jumpscare / Fullscreen Drop Mode -->
+  <div id="drop-container">
+    <div class="beslan-banner">
+      <div class="beslan-title">👑 ВЫ БЫЛИ ЗАБЕСЛАНЕНЫ! 👑</div>
+      <div class="beslan-subtitle">You just got Beslaned by @besikraev</div>
+    </div>
+
+    <div class="video-frame">
+      <video id="beslan-video" src="assets/beslan.mp4" playsinline loop preload="auto"></video>
+      <iframe id="beslan-iframe" src="about:blank" width="100%" height="100%" frameborder="0" scrolling="no" allowtransparency="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+    </div>
+
+    <div class="action-bar">
+      <button class="btn btn-primary" onclick="scrollToHunterStudio()">
+        😈 Разыграть друга этой ссылкой
+      </button>
+      <a href="https://www.instagram.com/reel/DcQU8MDAMpV/" target="_blank" class="btn btn-secondary">
+        🎵 Полный трек в Instagram
+      </a>
+      <button class="btn btn-secondary" onclick="closeBesroll()">
+        ✖️ Закрыть
+      </button>
+    </div>
+
+    <!-- Hunter Studio inside Drop Mode (in the exact same window!) -->
+    <div id="hunter-studio" class="glass-card" style="margin-top: 20px; width: 100%; max-width: 680px; text-align: left;">
+      <div class="header-badge" style="background: rgba(0, 242, 254, 0.2); color: #00f2fe;">🎯 Очередь за тобой</div>
+      <h2>Разыграй друга прямо сейчас</h2>
+      <p class="subtitle" style="font-size: 0.95rem;">
+        Вставь ссылку на любую новость — мы скопируем её превью, а друг попадет на этот же Бесролл!
+      </p>
+
+      <div style="background: rgba(0,0,0,0.3); padding: 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+        <label class="input-label">ССЫЛКА НА НОВОСТЬ:</label>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <input type="text" id="hunter-url-input" class="input-field" placeholder="https://tass.ru/... или https://ria.ru/..." style="flex: 1; min-width: 200px;">
+          <button class="btn btn-primary" onclick="scrapeFromHunter()">
+            ⚡️ Создать
+          </button>
+        </div>
+      </div>
+
+      <div style="margin-top: 14px;">
+        <label class="input-label">ГОТОВАЯ ССЫЛКА-ЛОВУШКА ДЛЯ ДРУГА:</label>
+        <input type="text" id="hunter-generated-link" class="input-field" readonly style="color: var(--accent-cyan); background: rgba(0,0,0,0.5);" onclick="this.select()">
+        
+        <div style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
+          <button class="btn btn-primary" onclick="copyHunterLink()" style="flex: 1;">
+            📋 Скопировать ссылку
+          </button>
+          <button class="btn btn-secondary" onclick="shareHunterTelegram()">
+            ✈️ В Telegram
+          </button>
+          <button class="btn btn-secondary" onclick="shareHunterWhatsApp()">
+            💬 В WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    function scrollToHunterStudio() {
+      const studio = document.getElementById('hunter-studio');
+      if (studio) {
+        studio.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    async function scrapeFromHunter() {
+      const input = document.getElementById('hunter-url-input');
+      if (!input || !input.value.trim()) {
+        showToast('⚠️ Вставьте ссылку на новость!');
+        return;
+      }
+      const targetInput = document.getElementById('target-url-input');
+      if (targetInput) targetInput.value = input.value.trim();
+      await scrapeAndGenerate();
+      
+      const genLink = document.getElementById('generated-link');
+      const hunterGenLink = document.getElementById('hunter-generated-link');
+      if (genLink && hunterGenLink) {
+        hunterGenLink.value = genLink.value;
+      }
+    }
+
+    function copyHunterLink() {
+      const hunterGenLink = document.getElementById('hunter-generated-link');
+      if (hunterGenLink && hunterGenLink.value) {
+        navigator.clipboard.writeText(`${currentTrapData.t}\n${hunterGenLink.value}`);
+        showToast('✅ Ссылка скопирована!');
+      } else {
+        copyGeneratedLink();
+      }
+    }
+
+    function shareHunterTelegram() {
+      shareToTelegram();
+    }
+
+    function shareHunterWhatsApp() {
+      shareToWhatsApp();
+    }
+  </script>
+</body>
+</html>

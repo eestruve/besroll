@@ -1,0 +1,10 @@
+[build]
+  publish = "public"
+
+[[edge_functions]]
+  function = "trap"
+  path = "/r/*"
+
+[[edge_functions]]
+  function = "scrape"
+  path = "/api/scrape"

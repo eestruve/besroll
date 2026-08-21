@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Personal Gossip/Leak OpenGraph Spoofing -->
+  <meta property="og:title" content="😳 Пост в канале «Подслушано»: фото и обсуждение...">
+  <meta property="og:description" content="«Смотрите кого заметили вчера в центре...» Читать пост и 142 комментария:">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=800">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <title>😳 Читать пост и комментарии</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .post-preview {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-align: left;
+    }
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #ef4444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .blurred-content {
+      filter: blur(6px);
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 12px;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" style="max-width: 580px;">
+    <div class="glass-card post-preview" onclick="triggerBesroll()">
+      <div class="post-header">
+        <div class="avatar">🔥</div>
+        <div>
+          <div style="font-weight: 700; font-size: 1.1rem;">Подслушано / Анонимные Сливы</div>
+          <div style="font-size: 0.8rem; color: var(--text-dim);">только что • 14.8k просмотров</div>
+        </div>
+      </div>
+
+      <div class="blurred-content">
+        <p>Смотрите что вчера произошло, просто шок... Мы не ожидали что этот человек способен на такое. Фотографии и переписка прикреплены ниже в архиве. Кто узнал его на снимке?</p>
+      </div>
+
+      <button class="pulse-button" style="width: 100%; justify-content: center; margin-top: 10px;">
+        👁 Снять цензуру и показать фото
+      </button>
+    </div>
+  </div>
+
+  <!-- Fullscreen Drop Mode -->
+  <div id="drop-container">
+    <div class="beslan-banner">
+      <div class="beslan-title">👑 ВЫ БЫЛИ ЗАБЕСЛАНЕНЫ! 👑</div>
+      <div class="beslan-subtitle">Любопытство сгубило кошку, а вас забесланил @besikraev</div>
+    </div>
+
+    <div class="video-frame">
+      <video id="beslan-video" src="assets/beslan.mp4" playsinline loop preload="auto"></video>
+      <iframe id="beslan-iframe" src="about:blank" width="100%" height="100%" frameborder="0" scrolling="no" allowtransparency="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+    </div>
+
+    <div class="action-bar">
+      <button class="btn btn-primary" onclick="copyTrapLink('gossip.html', 'Жесть... Это реально про тебя тут выложили пост? 😳')">
+        😈 Отправить в ЛС другу
+      </button>
+      <a href="https://www.instagram.com/reel/DcQU8MDAMpV/" target="_blank" class="btn btn-secondary">
+        🎵 Слушать полный трек
+      </a>
+      <a href="index.html" class="btn btn-secondary">
+        🏠 В генератор ловушек
+      </a>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
