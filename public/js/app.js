@@ -1,5 +1,17 @@
 // BesTube (Бесроллинг) — 2007 Nostalgic Engine & Dynamic Trap Studio
 
+const YM_ID = 111840556;
+
+function trackGoal(goalName, goalParams = {}) {
+  try {
+    if (typeof window.ym === 'function') {
+      window.ym(YM_ID, 'reachGoal', goalName, goalParams);
+    }
+  } catch (e) {
+    console.warn('Yandex.Metrika goal error:', e);
+  }
+}
+
 const BESLAN_REEL_ID = 'DcQU8MDAMpV';
 const BESLAN_REEL_URL = `https://www.instagram.com/reel/${BESLAN_REEL_ID}/`;
 const BESLAN_EMBED_URL = `https://www.instagram.com/reel/${BESLAN_REEL_ID}/embed/`;
@@ -14,7 +26,7 @@ let currentTrapData = {
 
 let viewsCount = 1337420;
 
-// Presets (Nostalgia 35+ / Детство 90-х и 2000-х)
+// Presets (Nostalgia / Детство 90-х и 2000-х)
 const PRESETS = {
   vhs_archive: {
     t: "📼 Найдена редкая видеозапись с кассеты VHS 1997 года (Школьная дискотека)",
@@ -157,6 +169,7 @@ function triggerBesroll() {
   const overlay = document.getElementById('play-overlay');
 
   playDropSound();
+  trackGoal('besroll_triggered');
 
   // Hide overlay
   if (overlay) overlay.style.display = 'none';
@@ -482,12 +495,15 @@ function applyPreset(key) {
   const studio = document.getElementById('generator-section');
   if (studio) studio.scrollIntoView({ behavior: 'smooth' });
 
+  trackGoal('trap_generated', { method: 'preset', preset: key });
   showToast(`🎯 Пресет «${preset.t.slice(0, 25)}...» применен!`);
 }
 
 function copyGeneratedLink() {
   const linkInput = document.getElementById('generated-link');
   const fullUrl = linkInput && linkInput.value ? linkInput.value : generateTrapUrl();
+
+  trackGoal('copy_link_click');
 
   // Copy EXCLUSIVELY the pure URL (no title) so Telegram/WhatsApp crawlers show the card preview cleanly!
   if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -520,17 +536,20 @@ function copyFallback(text) {
 
 function shareToTelegram() {
   const url = generateTrapUrl();
+  trackGoal('share_telegram');
   // Pass ONLY the URL parameter so Telegram's crawler displays the OpenGraph preview card cleanly!
   window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}`, '_blank');
 }
 
 function shareToWhatsApp() {
   const url = generateTrapUrl();
+  trackGoal('share_whatsapp');
   window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(url)}`, '_blank');
 }
 
 function shareToVK() {
   const url = generateTrapUrl();
+  trackGoal('share_vk');
   const text = currentTrapData.t;
   window.open(`https://vk.com/share.php?url=${encodeURIComponent(url)}&title=${encodeURIComponent(text)}`, '_blank');
 }
@@ -726,12 +745,34 @@ function setupAntiPause() {
   }
 }
 
+// Automatic click delegation for button goals
+function setupGoalTracking() {
+  document.addEventListener('click', (e) => {
+    const target = e.target.closest('a, button');
+    if (!target) return;
+
+    const href = target.getAttribute('href') || '';
+    const text = target.innerText || '';
+
+    if (href.includes('qtickets.events') || text.includes('Билеты на концерт') || text.includes('Купить билет')) {
+      trackGoal('buy_tickets_click');
+    } else if (text.includes('Разыграть друга') || href.includes('#generator-section')) {
+      trackGoal('create_prank_click');
+    } else if (href.includes('t.me/besik_raev') || text.includes('@besik_raev')) {
+      trackGoal('telegram_click');
+    } else if (href.includes('instagram.com/besikraev') || text.includes('Instagram')) {
+      trackGoal('instagram_click');
+    }
+  });
+}
+
 // Initialize on DOM load
 window.addEventListener('DOMContentLoaded', () => {
   initPreload();
   DvdBouncer.init();
   setupAntiPause();
   setupCookieGateListeners();
+  setupGoalTracking();
 
   const titleInput = document.getElementById('custom-title');
   if (titleInput && !titleInput.value) titleInput.value = currentTrapData.t;
