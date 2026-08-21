@@ -91,7 +91,7 @@ function initPreload() {
 let isCookieGateActive = false;
 let hasCookieGateFired = false;
 
-// 100% Unmuted Autoplay Trigger via Cookie Consent Screen (User Gesture on ANY interaction)
+// 100% Guaranteed Unmuted Autoplay Trigger via Genuine User Gesture (Click/Tap)
 function acceptCookieAndPlay() {
   if (hasCookieGateFired) return;
   hasCookieGateFired = true;
@@ -111,7 +111,7 @@ function acceptCookieAndPlay() {
     pill.style.display = 'flex';
   }
 
-  // Trigger playback in exact user gesture frame (unlocks unmuted audio)
+  // Trigger unmuted playback directly in synchronous click/tap frame
   triggerBesroll();
 }
 
@@ -136,30 +136,6 @@ function setupCookieGateListeners() {
     isCookieGateActive = true;
     hasCookieGateFired = false;
   }
-
-  // Close and trigger on ANY touch, tap, click, scroll, wheel, or swipe!
-  const triggerEvents = ['click', 'touchstart', 'touchend', 'pointerdown', 'pointerup', 'scroll', 'wheel', 'touchmove', 'keydown'];
-
-  triggerEvents.forEach(evtName => {
-    gateEl.addEventListener(evtName, () => {
-      if (isCookieGateActive && !hasCookieGateFired) {
-        acceptCookieAndPlay();
-      }
-    }, { passive: true, capture: true });
-  });
-
-  // Also catch window-level gestures while gate is active
-  window.addEventListener('scroll', () => {
-    if (isCookieGateActive && !hasCookieGateFired) {
-      acceptCookieAndPlay();
-    }
-  }, { passive: true, capture: true });
-
-  window.addEventListener('touchmove', () => {
-    if (isCookieGateActive && !hasCookieGateFired) {
-      acceptCookieAndPlay();
-    }
-  }, { passive: true, capture: true });
 }
 
 // Trigger Besroll
