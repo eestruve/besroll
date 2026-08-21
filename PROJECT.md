@@ -48,5 +48,6 @@
 ---
 
 ## 🎯 Основные ссылки и контакты
+* **GitHub репозиторий:** [https://github.com/eestruve/besroll](https://github.com/eestruve/besroll)
 * **Оригинал ролика/трека:** [Instagram Reel Беслана](https://www.instagram.com/reel/DcQU8MDAMpV/)
 * **Профиль артиста:** [@besikraev](https://www.instagram.com/besikraev)

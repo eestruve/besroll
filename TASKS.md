@@ -1,7 +1,7 @@
 # 📋 Задачи и Бэклог: 17_Бесроллинг
 
 ## 🎯 Текущий фокус / В работе (In Progress)
-- [ ] Деплой проекта на Netlify (через Netlify CLI или привязку GitHub репозитория).
+- [ ] Деплой проекта на Netlify (привязка репозитория `eestruve/besroll` в панели Netlify).
 - [ ] Размещение финального файла `beslan.mp4` в `public/assets/`.
 
 ## 📥 Бэклог задач (Backlog / To Do)
@@ -9,6 +9,7 @@
 - [ ] Добавление глобального счётчика «Сколько людей попалось на Бесролл» (Global Counter).
 
 ## ✅ Выполнено (Done)
+- [x] [2026-08-21] **Проект успешно выгружен на GitHub**: [github.com/eestruve/besroll](https://github.com/eestruve/besroll).
 - [x] [2026-08-21] **Разработана архитектура динамического клоакинга на Netlify Edge Functions**:
   - `netlify/edge-functions/scrape.ts` — серверный парсинг метатегов с любого URL (`tass.ru`, `ria.ru`, `habr.com` и др.).
   - `netlify/edge-functions/trap.ts` — маршрут `/r/*`, отдающий поддельные OG-метатеги роботам Telegram/WhatsApp/VK и запускающий Бесролл для людей.
