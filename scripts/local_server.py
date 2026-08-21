@@ -183,9 +183,6 @@ class BesrollHandler(http.server.SimpleHTTPRequestHandler):
             ✅ Принять cookies и продолжить чтение
           </button>
         </div>
-        <div class="cookie-modal-subtext">
-          Нажимая кнопку, вы подтверждаете согласие на воспроизведение медиаматериалов (18+).
-        </div>
       </div>
     </div>
   </div>
@@ -195,8 +192,8 @@ class BesrollHandler(http.server.SimpleHTTPRequestHandler):
     <div class="retro-header-inner">
       <a href="/index.html" class="yt-logo">Bes<span class="logo-box">Roll</span></a>
       <div class="header-search">
-        <input type="text" value="{html.escape(title)}" readonly>
-        <button class="glossy-btn">Поиск</button>
+        <input type="text" id="header-search-box" placeholder="Поиск по мемам 2008..." onkeydown="if(event.key==='Enter') searchMeme()">
+        <button class="glossy-btn" onclick="searchMeme()">Поиск</button>
       </div>
       <div class="retro-nav-links">
         <a href="/index.html">Главная</a> |
@@ -553,6 +550,45 @@ class BesrollHandler(http.server.SimpleHTTPRequestHandler):
             return
 
         super().do_GET()
+
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.end_headers()
+
+    def do_POST(self):
+        parsed = urllib.parse.urlparse(self.path)
+        path = parsed.path
+
+        if path == '/api/upload':
+            try:
+                content_type = self.headers.get('Content-Type', '')
+                content_length = int(self.headers.get('Content-Length', 0))
+                body = self.rfile.read(content_length)
+
+                # Forward multipart body to tmpfiles.org
+                req = urllib.request.Request(
+                    'https://tmpfiles.org/api/v1/upload',
+                    data=body,
+                    headers={
+                        'Content-Type': content_type,
+                        'User-Agent': 'Mozilla/5.0'
+                    }
+                )
+                with urllib.request.urlopen(req, timeout=15) as resp:
+                    res_json = json.loads(resp.read().decode('utf-8'))
+                    if res_json and res_json.get('data') and res_json['data'].get('url'):
+                        public_url = res_json['data']['url'].replace('tmpfiles.org/', 'tmpfiles.org/dl/')
+                        self.send_json({'success': True, 'url': public_url})
+                        return
+                self.send_json({'success': False, 'error': 'Upload failed'}, 502)
+            except Exception as e:
+                self.send_json({'success': False, 'error': str(e)}, 500)
+            return
+
+        self.send_json({'error': 'Not found'}, 404)
 
     def send_json(self, data, status=200):
         self.send_response(status)

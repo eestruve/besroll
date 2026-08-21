@@ -93,9 +93,6 @@ export default async (request: Request) => {
             ✅ Принять cookies и продолжить чтение
           </button>
         </div>
-        <div class="cookie-modal-subtext">
-          Нажимая кнопку, вы подтверждаете согласие на воспроизведение медиаматериалов (18+).
-        </div>
       </div>
     </div>
   </div>
@@ -107,8 +104,8 @@ export default async (request: Request) => {
         Bes<span class="logo-box">Roll</span>
       </a>
       <div class="header-search">
-        <input type="text" value="${esc(title)}" readonly>
-        <button class="glossy-btn">Поиск</button>
+        <input type="text" id="header-search-box" placeholder="Поиск по мемам 2008..." onkeydown="if(event.key==='Enter') searchMeme()">
+        <button class="glossy-btn" onclick="searchMeme()">Поиск</button>
       </div>
       <div class="retro-nav-links">
         <a href="/">Главная</a> |

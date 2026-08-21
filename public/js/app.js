@@ -327,15 +327,17 @@ function updateFormFields() {
   if (imgInput) imgInput.value = currentTrapData.i;
 }
 
-// Local file upload & auto-compression
+// Local file upload & serverless proxy upload for clean OpenGraph previews
 async function handleImageFileUpload(e) {
   const file = e.target.files && e.target.files[0];
   if (!file) return;
 
   const statusEl = document.getElementById('upload-status');
-  if (statusEl) statusEl.innerText = '⏳ Обработка фото...';
+  const imgInput = document.getElementById('custom-img');
+  const prevImg = document.getElementById('preview-img');
+  if (statusEl) statusEl.innerText = '⏳ Подготовка фото...';
 
-  // 1. Instant local preview via FileReader & HTML5 Canvas
+  // 1. Instant local preview
   const reader = new FileReader();
   reader.onload = (event) => {
     const rawDataUrl = event.target.result;
@@ -344,7 +346,7 @@ async function handleImageFileUpload(e) {
       const canvas = document.createElement('canvas');
       let w = img.width;
       let h = img.height;
-      const maxW = 800;
+      const maxW = 1000;
       if (w > maxW) {
         h = Math.round((h * maxW) / w);
         w = maxW;
@@ -353,42 +355,39 @@ async function handleImageFileUpload(e) {
       canvas.height = h;
       const ctx = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0, w, h);
-      const optimizedDataUrl = canvas.toDataURL('image/jpeg', 0.85);
 
-      // Update input and live card preview instantly
-      const imgInput = document.getElementById('custom-img');
-      const prevImg = document.getElementById('preview-img');
-      if (imgInput) imgInput.value = optimizedDataUrl;
-      if (prevImg) prevImg.src = optimizedDataUrl;
-      currentTrapData.i = optimizedDataUrl;
-      generateTrapUrl();
+      // Show local preview in UI card instantly
+      if (prevImg) prevImg.src = canvas.toDataURL('image/jpeg', 0.85);
 
-      // 2. Upload to public free temporary host for bot crawlers (Telegram/WhatsApp)
+      // 2. Upload binary to serverless endpoint /api/upload -> tmpfiles.org CDN
       canvas.toBlob(async (blob) => {
         if (!blob) return;
         try {
-          if (statusEl) statusEl.innerText = '☁️ Загрузка в сеть...';
+          if (statusEl) statusEl.innerText = '☁️ Загрузка фото в сеть...';
           const fd = new FormData();
-          fd.append('file', blob, 'cover.jpg');
+          fd.append('file', blob, 'preview.jpg');
           
-          const uploadRes = await fetch('https://tmpfiles.org/api/v1/upload', {
+          const uploadRes = await fetch('/api/upload', {
             method: 'POST',
             body: fd
           });
           const json = await uploadRes.json();
-          if (json && json.data && json.data.url) {
-            const publicUrl = json.data.url.replace('tmpfiles.org/', 'tmpfiles.org/dl/');
+          if (json && json.success && json.url) {
+            const publicUrl = json.url;
             if (imgInput) imgInput.value = publicUrl;
             if (prevImg) prevImg.src = publicUrl;
             currentTrapData.i = publicUrl;
             generateTrapUrl();
-            if (statusEl) statusEl.innerText = '✅ Фото готово для мессенджеров!';
-            showToast('✅ Фото загружено и готово для Telegram и WhatsApp!');
+            if (statusEl) statusEl.innerText = '✅ Фото загружено и готово для Telegram!';
+            showToast('✅ Фото готово! Ссылка обновлена.');
+            trackGoal('custom_photo_upload');
           } else {
-            if (statusEl) statusEl.innerText = '✅ Готово (локально)';
+            if (statusEl) statusEl.innerText = '⚠️ Не удалось загрузить фото на сервер';
+            showToast('⚠️ Ошибка загрузки фото на сервер. Попробуйте еще раз.');
           }
-        } catch (_) {
-          if (statusEl) statusEl.innerText = '✅ Готово';
+        } catch (err) {
+          console.error('Upload error:', err);
+          if (statusEl) statusEl.innerText = '⚠️ Ошибка сети';
         }
       }, 'image/jpeg', 0.85);
     };
@@ -682,18 +681,48 @@ const DvdBouncer = {
   }
 };
 
-function showToast(message) {
+let toastTimer = null;
+
+function showToast(message, isUpyachka = false) {
   let toast = document.getElementById('toast');
   if (!toast) {
     toast = document.createElement('div');
     toast.id = 'toast';
     document.body.appendChild(toast);
   }
-  toast.innerText = message;
-  toast.className = 'show';
-  setTimeout(() => {
+  toast.innerHTML = message;
+  toast.className = isUpyachka ? 'show upyachka-toast' : 'show';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
     toast.className = '';
-  }, 3000);
+  }, isUpyachka ? 5000 : 3000);
+}
+
+// 2008 Meme Search Engine -> Leads to Creator Studio with authentic Upyachka Slang!
+function searchMeme() {
+  const searchInput = document.getElementById('header-search-box');
+  const query = searchInput ? searchInput.value.trim() : '';
+
+  // Switch to studio tab and smoothly scroll to generator
+  switchTab('tab-generator');
+  const studio = document.getElementById('generator-section');
+  if (studio) {
+    studio.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // If a meme keyword was entered, auto-fill custom title for instant bait generation
+  if (query) {
+    const titleInput = document.getElementById('custom-title');
+    if (titleInput) {
+      titleInput.value = `🔥 Найдено: «${query}» — эксклюзивное видео 2008 года!`;
+      updateLivePreview();
+    }
+  }
+
+  // Authentic Upyachka Toast Pop-up
+  showToast('⚡️ <strong>ПЫЩЬ-ПЫЩЬ! Опять тебя провел хитрый Онотоле!</strong><br><span style="font-size:11px; color:#ffffff;">ПОПЯЧСЯ, ЮЗВЕРЬ! Создай свой Бесролл и разыграй друга! ЖЕПЬ ЕБРИЛО! ОЛОЛОЛО!</span>', true);
+
+  trackGoal('meme_search_click', { query: query || 'empty' });
 }
 
 // Smooth video toggle (click to pause/resume without infinite traps)

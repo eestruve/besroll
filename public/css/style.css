@@ -830,21 +830,35 @@ body {
   position: fixed;
   bottom: 25px;
   left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: #333333;
+  transform: translateX(-50%) translateY(120px);
+  background: #111827;
   color: #ffffff;
-  border: 1px solid #555555;
-  padding: 8px 18px;
-  border-radius: 20px;
-  font-size: 12px;
+  border: 2px solid #ef4444;
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 13px;
   font-weight: bold;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  transition: transform 0.25s ease;
+  text-align: center;
+  max-width: 90vw;
+  width: auto;
+  line-height: 1.4;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 15px rgba(239, 68, 68, 0.4);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
   z-index: 1000000;
+  pointer-events: none;
+  opacity: 0;
 }
 
 #toast.show {
   transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+#toast.upyachka-toast {
+  border-color: #ffe600;
+  background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 0 0 20px #ffe600;
+  color: #ffe600;
 }
 
 /* ==========================================================================

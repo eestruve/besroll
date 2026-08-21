@@ -8,3 +8,7 @@
 [[edge_functions]]
   function = "scrape"
   path = "/api/scrape"
+
+[[edge_functions]]
+  function = "upload"
+  path = "/api/upload"
