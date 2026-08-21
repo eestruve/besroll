@@ -568,8 +568,8 @@ function scrollToStudioFromDrop() {
 // ----------------------------------------------------
 const DvdBouncer = {
   el: null,
-  x: 30,
-  y: 60,
+  x: 20,
+  y: 70,
   vx: 1.8,
   vy: 1.4,
   baseVx: 1.8,
@@ -578,7 +578,6 @@ const DvdBouncer = {
   turboTimer: null,
   colors: ['#ff0055', '#00f2fe', '#ffe600', '#00ff88', '#b5179e', '#ff5400', '#7209b7', '#06d6a0'],
   colorIdx: 0,
-  isPaused: false,
 
   init() {
     let pill = document.getElementById('dvd-pill');
@@ -599,14 +598,16 @@ const DvdBouncer = {
       this.el.style.display = 'flex';
     }
 
-    // Random initial direction
+    // Set initial position
+    this.x = 20;
+    this.y = 70;
     this.vx = (Math.random() > 0.5 ? 1 : -1) * this.baseVx;
     this.vy = (Math.random() > 0.5 ? 1 : -1) * this.baseVy;
     this.applyColor();
 
     // Click on pill triggers turbo boost
     this.el.addEventListener('click', () => {
-      this.accelerate(3.5, 3000);
+      this.accelerate(3.0, 2500);
       showToast('🚀 Не поймаешь! Бесроллинг активен!');
     });
 
@@ -626,7 +627,7 @@ const DvdBouncer = {
     this.applyColor();
   },
 
-  accelerate(factor = 3.5, duration = 3000) {
+  accelerate(factor = 3.0, duration = 2500) {
     this.multiplier = factor;
     if (this.el) this.el.classList.add('turbo');
     clearTimeout(this.turboTimer);
@@ -639,10 +640,10 @@ const DvdBouncer = {
   loop() {
     if (!this.el) return;
 
-    const width = this.el.offsetWidth || 220;
-    const height = this.el.offsetHeight || 38;
-    const maxX = window.innerWidth - width - 6;
-    const maxY = window.innerHeight - height - 6;
+    const width = this.el.offsetWidth || 210;
+    const height = this.el.offsetHeight || 36;
+    const maxX = Math.max(10, window.innerWidth - width - 8);
+    const maxY = Math.max(10, window.innerHeight - height - 8);
 
     this.x += this.vx * this.multiplier;
     this.y += this.vy * this.multiplier;
@@ -652,22 +653,22 @@ const DvdBouncer = {
     // Bounce X
     if (this.x <= 4) {
       this.x = 4;
-      this.vx = Math.abs(this.vx);
+      this.vx = Math.abs(this.baseVx);
       hit = true;
     } else if (this.x >= maxX) {
       this.x = maxX;
-      this.vx = -Math.abs(this.vx);
+      this.vx = -Math.abs(this.baseVx);
       hit = true;
     }
 
     // Bounce Y
     if (this.y <= 4) {
       this.y = 4;
-      this.vy = Math.abs(this.vy);
+      this.vy = Math.abs(this.baseVy);
       hit = true;
     } else if (this.y >= maxY) {
       this.y = maxY;
-      this.vy = -Math.abs(this.vy);
+      this.vy = -Math.abs(this.baseVy);
       hit = true;
     }
 
@@ -675,7 +676,7 @@ const DvdBouncer = {
       this.nextColor();
     }
 
-    this.el.style.transform = `translate3d(${this.x}px, ${this.y}px, 0)`;
+    this.el.style.transform = `translate3d(${Math.round(this.x)}px, ${Math.round(this.y)}px, 0)`;
 
     requestAnimationFrame(() => this.loop());
   }
@@ -692,31 +693,19 @@ function showToast(message) {
   toast.className = 'show';
   setTimeout(() => {
     toast.className = '';
-  }, 3500);
+  }, 3000);
 }
 
-// Hook video pause attempts to accelerate DVD & refuse pausing
-function setupAntiPause() {
+// Smooth video toggle (click to pause/resume without infinite traps)
+function setupVideoControls() {
   const videoEl = document.getElementById('beslan-video');
   if (videoEl) {
-    videoEl.addEventListener('pause', (e) => {
-      if (!videoEl.ended) {
-        // Refuse pause and accelerate DVD!
-        videoEl.play();
-        DvdBouncer.accelerate(4.0, 3500);
-        showToast('⚡️ Бесроллинг нельзя остановить!');
-      }
-    });
-
     videoEl.addEventListener('click', () => {
-      DvdBouncer.accelerate(3.5, 3000);
-    });
-  }
-
-  const wrapper = document.getElementById('video-wrapper');
-  if (wrapper) {
-    wrapper.addEventListener('click', () => {
-      DvdBouncer.accelerate(3.5, 3000);
+      if (videoEl.paused) {
+        videoEl.play();
+      } else {
+        videoEl.pause();
+      }
     });
   }
 }
@@ -746,7 +735,7 @@ function setupGoalTracking() {
 window.addEventListener('DOMContentLoaded', () => {
   initPreload();
   DvdBouncer.init();
-  setupAntiPause();
+  setupVideoControls();
   setupCookieGateListeners();
   setupGoalTracking();
 
