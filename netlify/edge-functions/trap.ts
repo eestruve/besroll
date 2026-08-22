@@ -37,13 +37,19 @@ export default async (request: Request) => {
   <meta property="og:title" content="${esc(title)}">
   <meta property="og:description" content="${esc(description)}">
   <meta property="og:image" content="${esc(image)}">
+  <meta property="og:image:secure_url" content="${esc(image)}">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Новостной вестник">
+  <link rel="image_src" href="${esc(image)}">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${esc(title)}">
   <meta name="twitter:description" content="${esc(description)}">
   <meta name="twitter:image" content="${esc(image)}">
+  <meta name="twitter:image:src" content="${esc(image)}">
 
   <link rel="stylesheet" href="/css/style.css">
   <link rel="preload" as="video" href="/assets/beslan.mp4" type="video/mp4">
@@ -166,22 +172,11 @@ export default async (request: Request) => {
         </p>
         <!-- Action Buttons (2007 Style) -->
         <div class="action-buttons-group">
-          <div class="action-buttons-primary">
-            <a href="https://moscow.qtickets.events/242585-puteshestvie-v-detstvo" target="_blank" class="glossy-btn glossy-btn-red main-action-btn">
-              🎟 Билеты на концерт «В детство» (19 сен) 🚂
-            </a>
-            <a href="#generator-section" class="glossy-btn glossy-btn-accent main-action-btn" onclick="switchTab('tab-generator')">
-              😈 Разыграть друга (Создать ловушку)
-            </a>
-          </div>
-          <div class="action-buttons-social">
-            <a href="https://t.me/besik_raev" target="_blank" class="glossy-btn social-action-btn">
-              ✈️ Telegram @besik_raev
-            </a>
-            <a href="https://www.instagram.com/besikraev/" target="_blank" class="glossy-btn social-action-btn">
-              📸 Instagram @besikraev
-            </a>
-          </div>
+          <a href="#generator-section" class="glossy-btn glossy-btn-accent glossy-btn-viral main-action-btn" onclick="switchTab('tab-generator')" style="width: 100%; justify-content: center; font-size: 15px; padding: 12px 18px; text-align: center; gap: 10px; border-radius: 16px;">
+            <img src="/assets/kolobok_crazy.gif" width="24" height="30" alt="Crazy Kolobok" style="vertical-align: middle; flex-shrink: 0; image-rendering: pixelated;">
+            <span style="font-size: 14.5px; font-weight: 900; letter-spacing: 0.3px;">РАЗЫГРАТЬ ДРУГА (Создать ловушку)</span>
+            <img src="/assets/kolobok_laugh.gif" width="32" height="26" alt="Laughing Kolobok" style="vertical-align: middle; flex-shrink: 0; image-rendering: pixelated;">
+          </a>
         </div>
       </div>
 
@@ -368,21 +363,41 @@ export default async (request: Request) => {
 
     <!-- Sidebar -->
     <aside class="side-column">
-      <div class="retro-box">
-        <div class="retro-box-header"><span>Артист проекта</span></div>
-        <div style="text-align: center; padding: 6px 0;">
-          <img src="/assets/beslan_avatar.png" style="width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 2px solid #cc181e; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-bottom: 8px;" alt="Besik Raev">
-          <div style="font-size: 15px; font-weight: bold; color: #111;">Besik Raev</div>
-          <div style="color: #666; font-size: 11px; margin-top: 2px;">Концерт «Путешествие в детство» 🚂</div>
-          <div style="font-size: 11px; color: #b45309; font-weight: bold; margin-top: 4px; background: #fff7ea; border: 1px dashed #e29547; border-radius: 4px; padding: 4px;">
-            19 сентября • 17:00 • КДЦ «Полярный»
+      <!-- High-Conversion Concert & Artist Card -->
+      <div class="retro-box concert-hero-card" style="border: 2px solid #cc181e; background: linear-gradient(180deg, #fffafa 0%, #ffffff 100%); box-shadow: 0 4px 18px rgba(204, 24, 30, 0.18);">
+        <div class="retro-box-header" style="background: linear-gradient(180deg, #e62117 0%, #b81211 100%); color: #ffffff; font-weight: 800; display: flex; justify-content: space-between; align-items: center;">
+          <span>🎟 СОЛЬНЫЙ КОНЦЕРТ В МОСКВЕ</span>
+          <span style="background: #ffd700; color: #111; font-size: 9px; padding: 1px 5px; border-radius: 3px; font-weight: 900;">19 СЕН</span>
+        </div>
+        <div style="text-align: center; padding: 12px 8px;">
+          <div style="position: relative; display: inline-block; margin-bottom: 6px;">
+            <img src="/assets/beslan_avatar.png" style="width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 3px solid #cc181e; box-shadow: 0 3px 12px rgba(0,0,0,0.25);" alt="Besik Raev">
+            <span style="position: absolute; bottom: 0; right: 0; background: #ffd700; border: 1px solid #bfa000; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 11px;">🎤</span>
           </div>
-          <a href="https://moscow.qtickets.events/242585-puteshestvie-v-detstvo" target="_blank" class="glossy-btn glossy-btn-red" style="margin-top: 10px; width: 100%; justify-content: center; font-weight: 800;">
-            🎟 Купить билет (Плацкарт)
+          <div style="font-size: 16px; font-weight: 900; color: #111; margin-bottom: 2px;">Besik Raev</div>
+          <div style="font-size: 12.5px; font-weight: bold; color: #cc181e; margin-bottom: 4px;">
+            Концерт «Путешествие в детство» 🚂
+          </div>
+          <div style="font-size: 11px; color: #555; margin-bottom: 8px; line-height: 1.35;">
+            Тот самый голос из Бесролла вживую на сцене!
+          </div>
+
+          <div style="font-size: 11px; color: #854d0e; font-weight: 800; background: #fefce8; border: 1px dashed #eab308; border-radius: 6px; padding: 6px 8px; margin-bottom: 10px;">
+            📅 19 сентября • 17:00 • КДЦ «Полярный» (Москва)
+          </div>
+          
+          <a href="https://moscow.qtickets.events/242585-puteshestvie-v-detstvo" target="_blank" class="glossy-btn glossy-btn-red" style="width: 100%; justify-content: center; font-weight: 900; font-size: 13.5px; padding: 10px 14px; margin-bottom: 8px; box-shadow: 0 4px 14px rgba(204, 24, 30, 0.4); text-transform: uppercase; border-radius: 14px;">
+            🎟 КУПИТЬ БИЛЕТ НА КОНЦЕРТ
           </a>
-          <a href="https://t.me/besik_raev" target="_blank" class="glossy-btn" style="margin-top: 6px; width: 100%; justify-content: center;">
-            ✈️ Telegram @besik_raev
-          </a>
+
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <a href="https://t.me/besik_raev" target="_blank" class="glossy-btn" style="flex: 1 1 calc(50% - 3px); justify-content: center; font-size: 11px; padding: 6px 8px; font-weight: bold;">
+              ✈️ Telegram @besik_raev
+            </a>
+            <a href="https://www.instagram.com/besikraev/" target="_blank" class="glossy-btn" style="flex: 1 1 calc(50% - 3px); justify-content: center; font-size: 11px; padding: 6px 8px; font-weight: bold;">
+              📸 Instagram @besikraev
+            </a>
+          </div>
         </div>
       </div>
 

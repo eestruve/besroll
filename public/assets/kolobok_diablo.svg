@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" width="30" height="30">
+  <defs>
+    <!-- Kolobok 3D Body Gradient -->
+    <radialGradient id="kolobokBody" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#fffb99" />
+      <stop offset="45%" stop-color="#ffcc00" />
+      <stop offset="85%" stop-color="#e68a00" />
+      <stop offset="100%" stop-color="#b35900" />
+    </radialGradient>
+    
+    <!-- Red Horns Gradient -->
+    <linearGradient id="hornGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff4d4d" />
+      <stop offset="100%" stop-color="#990000" />
+    </linearGradient>
+
+    <!-- Gloss Highlight -->
+    <linearGradient id="gloss" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Left Horn -->
+  <path d="M 9 13 C 6 8, 5 3, 10 5 C 10 9, 11 11, 12 13 Z" fill="url(#hornGrad)" stroke="#660000" stroke-width="0.75" stroke-linejoin="round" />
+  
+  <!-- Right Horn -->
+  <path d="M 27 13 C 30 8, 31 3, 26 5 C 26 9, 25 11, 24 13 Z" fill="url(#hornGrad)" stroke="#660000" stroke-width="0.75" stroke-linejoin="round" />
+
+  <!-- Main Round Kolobok Body -->
+  <circle cx="18" cy="20" r="14" fill="url(#kolobokBody)" stroke="#804000" stroke-width="1" />
+
+  <!-- Top Gloss Reflection -->
+  <ellipse cx="16" cy="11" rx="8" ry="3.5" fill="url(#gloss)" />
+
+  <!-- Left Eyebrow (Mischievous/Angry) -->
+  <path d="M 9 14 Q 13 16 16 14" stroke="#4d2600" stroke-width="1.8" stroke-linecap="round" fill="none" />
+
+  <!-- Right Eyebrow (Mischievous/Angry) -->
+  <path d="M 27 14 Q 23 16 20 14" stroke="#4d2600" stroke-width="1.8" stroke-linecap="round" fill="none" />
+
+  <!-- Left Eye -->
+  <ellipse cx="12.5" cy="18" rx="2.5" ry="3" fill="#ffffff" stroke="#4d2600" stroke-width="0.8" />
+  <ellipse cx="13" cy="18" rx="1.4" ry="1.8" fill="#1a1a1a" />
+  <circle cx="12.2" cy="17.2" r="0.6" fill="#ffffff" />
+
+  <!-- Right Eye -->
+  <ellipse cx="23.5" cy="18" rx="2.5" ry="3" fill="#ffffff" stroke="#4d2600" stroke-width="0.8" />
+  <ellipse cx="23" cy="18" rx="1.4" ry="1.8" fill="#1a1a1a" />
+  <circle cx="22.2" cy="17.2" r="0.6" fill="#ffffff" />
+
+  <!-- Cheek Blushes -->
+  <ellipse cx="8" cy="22" rx="2" ry="1.2" fill="#ff6600" opacity="0.4" />
+  <ellipse cx="28" cy="22" rx="2" ry="1.2" fill="#ff6600" opacity="0.4" />
+
+  <!-- Devilish Wide Grin Mouth with Teeth -->
+  <path d="M 10 23 Q 18 33 26 23 Q 18 25 10 23 Z" fill="#660000" stroke="#330000" stroke-width="0.8" />
+  
+  <!-- White Top Teeth -->
+  <path d="M 12 23.5 Q 18 25.5 24 23.5 L 23 25 Q 18 27 13 25 Z" fill="#ffffff" />
+
+  <!-- Little Devilish Fangs -->
+  <polygon points="13,24 14,27 15,24" fill="#ffffff" />
+  <polygon points="21,24 22,27 23,24" fill="#ffffff" />
+
+  <!-- Tongue -->
+  <path d="M 15 27 Q 18 30 21 27 Q 18 26 15 27 Z" fill="#ff3366" />
+</svg>
