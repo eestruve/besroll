@@ -70,35 +70,20 @@ export default async (request: Request) => {
 </head>
 <body>
 
-  <!-- 🍪 STEP 1: COOKIE GATE & NEWS BAIT SCREEN (Guarantees 100% Sound Autoplay) -->
-  <div id="cookie-gate" class="cookie-gate-overlay">
-    <div class="fake-news-page">
-      <div class="news-topbar">
-        <div class="news-logo">🔴 СРОЧНЫЙ ВЫПУСК НОВОСТЕЙ</div>
-        <div class="news-date">Эксклюзив • Прямой эфир</div>
+  <!-- 🍪 STEP 1: 152-FZ STANDARD COOKIE CONSENT GATE (100% Autoplay with Sound) -->
+  <div id="cookie-gate" class="cookie-gate-overlay" onclick="acceptCookieAndPlay()">
+    <div class="cookie-consent-card fz152-card" onclick="event.stopPropagation()">
+      <div class="cookie-fz-header">
+        <span class="cookie-fz-icon">🍪</span>
+        <span class="cookie-fz-title">Использование файлов cookie</span>
       </div>
-
-      <div class="news-article-preview">
-        <div class="news-category">ГЛАВНОЕ СОБЫТИЕ ДНЯ</div>
-        <h1 class="news-title">${esc(title)}</h1>
-        <div class="news-image-box" onclick="acceptCookieAndPlay()" style="cursor: pointer;">
-          <img src="${esc(image)}" class="news-img" alt="News Image">
-        </div>
-      </div>
-
-      <div class="cookie-consent-modal">
-        <div class="cookie-modal-header">
-          <span style="font-size: 20px;">🍪</span>
-          <strong>Уведомление об использовании файлов Cookie</strong>
-        </div>
-        <p class="cookie-modal-text">
-          Для доступа к эксклюзивным материалам и продолжения чтения статьи подтвердите согласие на обработку файлов cookie.
-        </p>
-        <div class="cookie-modal-actions">
-          <button class="cookie-accept-btn" onclick="acceptCookieAndPlay()">
-            ✅ Принять cookies и продолжить чтение
-          </button>
-        </div>
+      <p class="cookie-fz-desc">
+        Мы используем файлы cookie и сервисы сбора технических данных для обеспечения правильной работы сайта и анализа пользовательского опыта. Продолжая использовать сайт, вы даете согласие на обработку данных в соответствии с Федеральным законом № 152-ФЗ «О персональных данных».
+      </p>
+      <div class="cookie-fz-actions">
+        <button class="cookie-accept-btn fz-accept-btn" onclick="acceptCookieAndPlay()">
+          Принять и продолжить
+        </button>
       </div>
     </div>
   </div>
