@@ -160,18 +160,18 @@ class BesrollHandler(http.server.SimpleHTTPRequestHandler):
 </head>
 <body>
 
-  <!-- STEP 1: 152-FZ STANDARD COOKIE CONSENT GATE (100% Autoplay with Sound) -->
-  <div id="cookie-gate" class="cookie-gate-overlay" onclick="acceptCookieAndPlay()">
-    <div class="cookie-consent-card fz152-card" onclick="event.stopPropagation()">
-      <div class="cookie-fz-header">
-        <span class="cookie-fz-icon">🍪</span>
-        <span class="cookie-fz-title">Использование файлов cookie</span>
+  <!-- STEP 1: 152-FZ COMPLIANCE CONSENT GATE (Anti-Adblock, 100% Sound Autoplay) -->
+  <div id="player-consent-backdrop" class="player-consent-backdrop" onclick="acceptCookieAndPlay()">
+    <div class="sys-compliance-card" onclick="event.stopPropagation()">
+      <div class="compliance-header">
+        <span class="compliance-icon">🍪</span>
+        <span class="compliance-title">Использование файлов cookie</span>
       </div>
-      <p class="cookie-fz-desc">
+      <p class="compliance-desc">
         Мы используем файлы cookie и сервисы сбора технических данных для обеспечения правильной работы сайта и анализа пользовательского опыта. Продолжая использовать сайт, вы даете согласие на обработку данных в соответствии с Федеральным законом № 152-ФЗ «О персональных данных».
       </p>
-      <div class="cookie-fz-actions">
-        <button class="cookie-accept-btn fz-accept-btn" onclick="acceptCookieAndPlay()">
+      <div class="compliance-actions">
+        <button class="sys-btn-confirm" onclick="acceptCookieAndPlay()">
           Принять и продолжить
         </button>
       </div>

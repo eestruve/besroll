@@ -83,7 +83,7 @@ function acceptCookieAndPlay() {
   hasCookieGateFired = true;
   isCookieGateActive = false;
 
-  const gateEl = document.getElementById('cookie-gate');
+  const gateEl = document.getElementById('player-consent-backdrop') || document.getElementById('cookie-gate');
   if (gateEl) {
     gateEl.classList.add('fade-out');
     setTimeout(() => {
@@ -102,9 +102,9 @@ function acceptCookieAndPlay() {
 }
 
 function openCookieGateTest() {
-  const gateEl = document.getElementById('cookie-gate');
+  const gateEl = document.getElementById('player-consent-backdrop') || document.getElementById('cookie-gate');
   const pill = document.getElementById('dvd-pill');
-  if (pill) pill.style.display = 'none'; // Never show meme pill on cookie news screen
+  if (pill) pill.style.display = 'none';
   if (gateEl) {
     gateEl.classList.remove('fade-out');
     gateEl.style.display = 'flex';
@@ -114,7 +114,7 @@ function openCookieGateTest() {
 }
 
 function setupCookieGateListeners() {
-  const gateEl = document.getElementById('cookie-gate');
+  const gateEl = document.getElementById('player-consent-backdrop') || document.getElementById('cookie-gate');
   if (!gateEl) return;
 
   const isVisible = window.getComputedStyle(gateEl).display !== 'none';

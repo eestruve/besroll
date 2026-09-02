@@ -893,7 +893,8 @@ body {
 /* ==========================================================================
    152-ФЗ COOKIE CONSENT OVERLAY (Authentic Standard Compliance Banner)
    ========================================================================== */
-.cookie-gate-overlay {
+.cookie-gate-overlay,
+.player-consent-backdrop {
   position: fixed;
   top: 0;
   left: 0;
@@ -916,13 +917,15 @@ body {
   box-sizing: border-box;
 }
 
-.cookie-gate-overlay.fade-out {
+.cookie-gate-overlay.fade-out,
+.player-consent-backdrop.fade-out {
   opacity: 0;
   transform: scale(1.02);
   pointer-events: none;
 }
 
-.cookie-consent-card.fz152-card {
+.cookie-consent-card.fz152-card,
+.sys-compliance-card {
   width: 100%;
   max-width: 440px;
   background: #ffffff;
@@ -942,37 +945,43 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.cookie-fz-header {
+.cookie-fz-header,
+.compliance-header {
   display: flex;
   align-items: center;
   gap: 6px;
   margin-bottom: 8px;
 }
 
-.cookie-fz-icon {
+.cookie-fz-icon,
+.compliance-icon {
   font-size: 16px;
 }
 
-.cookie-fz-title {
+.cookie-fz-title,
+.compliance-title {
   font-size: 14px;
   font-weight: 700;
   color: #1e293b;
   letter-spacing: -0.2px;
 }
 
-.cookie-fz-desc {
+.cookie-fz-desc,
+.compliance-desc {
   font-size: 11.5px;
   color: #475569;
   line-height: 1.4;
   margin: 0 0 12px;
 }
 
-.cookie-fz-actions {
+.cookie-fz-actions,
+.compliance-actions {
   display: flex;
   justify-content: flex-end;
 }
 
-.fz-accept-btn {
+.fz-accept-btn,
+.sys-btn-confirm {
   width: 100%;
   background: #2563eb;
   color: #ffffff;
@@ -987,11 +996,13 @@ body {
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
 }
 
-.fz-accept-btn:hover {
+.fz-accept-btn:hover,
+.sys-btn-confirm:hover {
   background: #1d4ed8;
 }
 
-.fz-accept-btn:active {
+.fz-accept-btn:active,
+.sys-btn-confirm:active {
   transform: scale(0.99);
 }
 
