@@ -51,6 +51,8 @@ export default async (request: Request) => {
   <meta name="twitter:image" content="${esc(image)}">
   <meta name="twitter:image:src" content="${esc(image)}">
 
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.png" type="image/png">
   <link rel="stylesheet" href="/css/style.css">
 
   <!-- Yandex.Metrika counter -->

@@ -142,6 +142,8 @@ class BesrollHandler(http.server.SimpleHTTPRequestHandler):
   <meta name="twitter:description" content="{html.escape(description)}">
   <meta name="twitter:image" content="{html.escape(image)}">
   <meta name="twitter:image:src" content="{html.escape(image)}">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.png" type="image/png">
   <link rel="stylesheet" href="/css/style.css">
 
   <!-- Yandex.Metrika counter -->
