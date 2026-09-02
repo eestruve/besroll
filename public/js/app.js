@@ -60,32 +60,18 @@ const PRESETS = {
   }
 };
 
-// Preload video with background memory caching (0ms start)
+// Preload video with faststart native streaming (0ms start)
 function initPreload() {
   const videoEl = document.getElementById('beslan-video');
   const dropVideoEl = document.getElementById('beslan-drop-video');
-  if (videoEl) { videoEl.preload = 'auto'; videoEl.load(); }
-  if (dropVideoEl) { dropVideoEl.preload = 'auto'; dropVideoEl.load(); }
-
-  // Background Blob prefetch: loads 100% of video into browser RAM while user views cookie screen
-  const videoSrc = (videoEl && videoEl.getAttribute('src')) || 'assets/beslan.mp4';
-  fetch(videoSrc)
-    .then(r => {
-      if (!r.ok) throw new Error();
-      return r.blob();
-    })
-    .then(blob => {
-      const blobUrl = URL.createObjectURL(blob);
-      if (videoEl) {
-        videoEl.src = blobUrl;
-        videoEl.load();
-      }
-      if (dropVideoEl) {
-        dropVideoEl.src = blobUrl;
-        dropVideoEl.load();
-      }
-    })
-    .catch(() => {});
+  if (videoEl) { 
+    videoEl.preload = 'auto'; 
+    videoEl.load(); 
+  }
+  if (dropVideoEl) { 
+    dropVideoEl.preload = 'auto'; 
+    dropVideoEl.load(); 
+  }
 }
 
 let isCookieGateActive = false;
